@@ -1,0 +1,32 @@
+{
+  "name": "short-url",
+  "version": "1.0.0",
+  "description": "short url",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js --exec babel-node",
+    "build": "babel src --out-dir dist",
+    "start": "node dist/index.js"
+  },
+  "repository": "git+https://github.com/LuisFOsG/short-url.git",
+  "keywords": [],
+  "author": "LuisFOsG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisFOsG/short-url/issues"
+  },
+  "homepage": "https://github.com/LuisFOsG/short-url#readme",
+  "dependencies": {
+    "core-js": "^3.9.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/node": "^7.13.0",
+    "@babel/preset-env": "^7.13.9",
+    "nodemon": "^2.0.7"
+  }
+}
