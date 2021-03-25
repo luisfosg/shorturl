@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
-    "build": "babel src --out-dir dist",
-    "start": "node dist/index.js"
+    "build": "babel src --out-dir dist && npm run copy",
+    "start": "node dist/index.js",
+    "lint": "eslint . --fix",
+    "copy": "copyfiles --up 1 src/public/* dist"
   },
   "repository": "git+https://github.com/LuisFOsG/short-url.git",
   "keywords": [],
@@ -20,13 +22,19 @@
     "core-js": "^3.9.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.8",
     "@babel/node": "^7.13.0",
     "@babel/preset-env": "^7.13.9",
+    "copyfiles": "^2.4.1",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.7"
   }
 }
