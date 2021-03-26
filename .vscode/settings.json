@@ -1,3 +1,9 @@
 {
-    "eslint.run": "onSave"
+    "eslint.run": "onSave",
+	"compile-hero.disable-compile-files-on-did-save-code": true,
+	"compile-hero.sass-output-directory": "../css",
+	"compile-hero.scss-output-directory": "../css",
+	"compile-hero.generate-minified-css": true,
+	"compile-hero.generate-minified-css-only": true,
+	"compile-hero.generate-minified-html-only": true,
 }

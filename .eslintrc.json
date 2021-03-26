@@ -20,6 +20,7 @@
         "linebreak-style": "off",
         "consistent-return": "off",
         "comma-dangle": "off",
+		"require-jsdoc": "error",
         "no-param-reassign": "off",
         "no-underscore-dangle": "off",
         "no-plusplus": "off",
@@ -28,4 +29,12 @@
         "no-tabs": 0,
         "no-console": "warn"
     }
+/* 	"overrides": [
+		{
+		  "files": ["*.test.js"],
+		  "rules": {
+			"require-jsdoc": "off"
+		  }
+		}
+	] */
 }
