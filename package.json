@@ -8,7 +8,7 @@
     "build": "babel src --out-dir dist && npm run copy",
     "start": "node dist/index.js",
     "lint": "eslint . --fix",
-    "copy": "copyfiles --up 1 src/public/* src/public/css/* src/views/** dist",
+    "copy": "copyfiles --up 1 src/public/* src/public/css/* src/public/img/* src/views/** dist",
     "docs": "jsdoc -c jsdoc.json"
   },
   "repository": "git+https://github.com/LuisFOsG/short-url.git",

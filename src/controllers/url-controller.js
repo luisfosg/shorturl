@@ -1,12 +1,15 @@
-/** La Función Home, Renderiza la pagina principal de la aplicación
+/** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
- * @param {Object} _req - "request" de la ruta
+ * @param {Object} req - "request" de la ruta
  * @param {Object} res - "response" de la ruta
  * @param {function} res.render - función para renderizar el html
 */
 
-export const home = async ( _req, res ) => {
-	res.render( 'home' );
+export const home = async ( req, res ) => {
+	let host = req.hostname;
+	host = `${host}/l/`;
+
+	res.render( 'home', { host } );
 };
 
 /** La Función Password, Renderiza la solicitud para ingresar la contraseña
@@ -31,14 +34,17 @@ export const pageNotFound = async ( _req, res ) => {
 	res.render( 'notFound' );
 };
 
-/** La Función shortUrl, verifica el link redirigir a la ruta solicitada
+/** La Función shortUrl, verifica el link para redirigir a la ruta solicitada
  * @type {function}
  * @param {Object} req - "request" de la ruta
  * @param {Object} res - "response" de la ruta
  * @param {function} res.status - función para enviar un estado http con json
+ * @param {function} res.redirect - función para redireccionar a otra pagina
 */
 
 export const shortUrl = async ( req, res ) => {
 	const { code } = req.params;
+
 	res.status( 200 ).json( { info: code } );
+/* 	res.redirect( 'https://getbootstrap.com/docs/4.5/utilities/flex/' ); */
 };
