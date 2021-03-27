@@ -9,5 +9,7 @@ import * as urlCtrl from '../controllers/url-controller';
 const router = Router();
 
 router.get( '/', urlCtrl.home );
+router.get( '/password', urlCtrl.password );
+router.get( '*', urlCtrl.pageNotFound );
 
 export default router;
