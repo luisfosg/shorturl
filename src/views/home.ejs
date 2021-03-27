@@ -1,7 +1,15 @@
-<%- include('partials/_head.ejs'); %>
+<%- include('layouts/_head.ejs'); %>
 
 <body>
-	Short Url
+	<%- include('layouts/_nav.ejs'); %>
+	<div class="d-flex justify-content-center">
+		<div class="card border-primary mb-3 mt-3" style="max-width: 18rem;">
+			<div class="card-header">Crear nueva Url</div>
+			<div class="card-body text-primary">
+				Hola Mundo.
+			</div>
+		</div>
+	</div>
 </body>
 
-<%- include('partials/_footer.ejs'); %>
+<%- include('layouts/_footer.ejs'); %>

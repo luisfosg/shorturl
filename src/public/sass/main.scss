@@ -1,0 +1,19 @@
+footer {
+	background-color: rgb(34, 33, 33);
+	color: rgb(187, 180, 169);
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+a {
+	text-decoration: none;
+
+	.link {
+		color: rgb(187, 180, 169);
+	}
+
+	&:hover {
+		text-decoration: none;
+	}
+}
