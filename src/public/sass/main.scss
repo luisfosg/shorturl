@@ -1,6 +1,14 @@
 footer {
 	background-color: rgb(34, 33, 33);
 	color: rgb(187, 180, 169);
+	margin-top: 35px;
+
+	div {
+		height: 50px;
+	}
+}
+
+.footer-bottom {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
