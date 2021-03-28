@@ -1,2 +1,15 @@
 ### Pagina Principal
 GET http://localhost:3000/
+
+### Subir URL
+POST http://localhost:3000/
+Content-Type: application/json
+
+{
+	"nick": "hola",
+	"password": "holamundo",
+	"shortUrl": "holaMundo",
+	"destinationUrl": "Pagina web de destino",
+	"passwordUrl": "holaMundo",
+	"views": 3
+}
