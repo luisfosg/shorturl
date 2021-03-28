@@ -4,9 +4,9 @@
   "description": "short url",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js --exec babel-node",
-    "build": "babel src --out-dir dist && npm run copy",
-    "start": "node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js --exec babel-node",
+    "build": "cross-env NODE_ENV=production babel src --out-dir dist && npm run copy",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
     "lint": "eslint . --fix",
     "copy": "copyfiles --up 1 src/public/* src/public/css/* src/public/img/* src/public/js/* src/views/** dist",
     "docs": "jsdoc -c jsdoc.json"
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/LuisFOsG/short-url#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "core-js": "3.9.1",
     "cross-env": "7.0.3",
     "dotenv": "8.2.0",
