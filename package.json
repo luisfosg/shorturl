@@ -8,7 +8,7 @@
     "build": "babel src --out-dir dist && npm run copy",
     "start": "node dist/index.js",
     "lint": "eslint . --fix",
-    "copy": "copyfiles --up 1 src/public/* src/public/css/* src/public/img/* src/views/** dist",
+    "copy": "copyfiles --up 1 src/public/* src/public/css/* src/public/img/* src/public/js/* src/views/** dist",
     "docs": "jsdoc -c jsdoc.json"
   },
   "repository": "git+https://github.com/LuisFOsG/short-url.git",
@@ -25,9 +25,8 @@
     "dotenv": "8.2.0",
     "ejs": "3.1.6",
     "express": "4.17.1",
-    "firebase-admin": "9.5.0",
     "helmet": "4.4.1",
-    "jsdoc": "3.6.6",
+    "mongoose": "5.12.2",
     "morgan": "1.10.0",
     "regenerator-runtime": "0.13.7",
     "sass": "1.32.8"
@@ -41,6 +40,7 @@
     "eslint": "7.22.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.22.1",
+    "jsdoc": "3.6.6",
     "nodemon": "2.0.7"
   }
 }

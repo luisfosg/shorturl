@@ -1,3 +1,5 @@
+import app from '../app';
+
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
  * @param {Object} req - "request" de la ruta
@@ -7,6 +9,7 @@
 
 export const home = async ( req, res ) => {
 	let host = req.hostname;
+	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
 	host = `${host}/l/`;
 
 	res.render( 'home', { host } );
