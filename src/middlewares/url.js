@@ -1,3 +1,18 @@
+// @ts-nocheck
+import User from '../models/user';
+
+const dataUser = async ( req, res, next, user ) => {
+	const { password } = req.body;
+	const matchPassword = await User.compararContrasenia( password, user.password );
+
+	if ( matchPassword ) {
+		req.user = user;
+		next();
+	} else {
+		res.status( 200 ).json( { error: 'Contraseña Incorrecta, Ese usuario ya Existe' } );
+	}
+};
+
 /** Metodo POST para guardar URLs
  * @type {function}
  * @param {Object} req - "request" de la ruta
@@ -7,7 +22,26 @@
 */
 
 export const userRegister = async ( req, res, next ) => {
-	next();
+	if ( !req.register ) next();
+	const {
+		nick,
+		password
+	} = req.body;
+
+	const findUser = await User.findOne( { nick } );
+
+	if ( findUser ) {
+		dataUser( req, res, next, findUser );
+	} else {
+		const newUser = new User( {
+			nick,
+			password: await User.encriptarContrasenia( password ),
+		} );
+
+		const userSave = await newUser.save();
+
+		res.status( 200 ).json( userSave );
+	}
 };
 
 /** Metodo POST para guardar URLs

@@ -18,7 +18,7 @@ router.get( '*', urlCtrl.pageNotFound );
 
 router.post(
 	'/url',
-	[url.dataEmpy],
+	[url.dataEmpy, url.userRegister],
 	dataCtrl.sendUrl
 );
 
