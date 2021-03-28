@@ -2,7 +2,7 @@
 GET http://localhost:3000/
 
 ### Subir URL
-POST http://localhost:3000/
+POST http://localhost:3000/url
 Content-Type: application/json
 
 {

@@ -6,9 +6,18 @@
 */
 
 export const sendUrl = async ( req, res ) => {
-	const data = req.body;
+	const {
+		nick,
+		password,
+		shortUrl,
+		destinationUrl,
+		passwordUrl,
+		views
+	} = req.body;
 
-	res.status( 200 ).json( data );
+	res.status( 200 ).json( {
+		nick, password, shortUrl, destinationUrl, passwordUrl, views
+	} );
 };
 
 /** Metodo POST para guardar URLs

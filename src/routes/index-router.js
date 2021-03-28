@@ -3,6 +3,8 @@ import { Router } from 'express';
 import * as urlCtrl from '../controllers/url-controller';
 import * as dataCtrl from '../controllers/data-controller';
 
+import * as url from '../middlewares/url';
+
 /** Genera las rutas para cada una de las Url
  * @type {Object}
 */
@@ -14,7 +16,12 @@ router.get( '/l/:code', urlCtrl.shortUrl );
 router.get( '/password', urlCtrl.password );
 router.get( '*', urlCtrl.pageNotFound );
 
-router.post( '/url', dataCtrl.sendUrl );
+router.post(
+	'/url',
+	[url.dataEmpy],
+	dataCtrl.sendUrl
+);
+
 router.post( '/password', dataCtrl.password );
 
 export default router;
