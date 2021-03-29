@@ -5,7 +5,8 @@ const urlSchema = new Schema( {
 	url: { type: String },
 	password: { type: String },
 	views: { type: Number },
-	qr: { type: String }
+	qr: { type: String },
+	idUser: { type: String }
 }, {
 	timestamps: true,
 	versionKey: false,

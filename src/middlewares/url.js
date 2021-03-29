@@ -22,7 +22,7 @@ const dataUser = async ( req, res, next, user ) => {
 */
 
 export const userRegister = async ( req, res, next ) => {
-	if ( !req.register ) next();
+	if ( !req.register ) return next();
 	const {
 		nick,
 		password
@@ -37,10 +37,10 @@ export const userRegister = async ( req, res, next ) => {
 			nick,
 			password: await User.encriptarContrasenia( password ),
 		} );
-
 		const userSave = await newUser.save();
 
-		res.status( 200 ).json( userSave );
+		req.user = userSave;
+		next();
 	}
 };
 
@@ -53,9 +53,8 @@ export const userRegister = async ( req, res, next ) => {
 */
 
 export const dataEmpy = async ( req, res, next ) => {
-	let empy = true;
 	req.register = false;
-	req.urlSend = true;
+	req.urlSend = false;
 
 	const {
 		nick,
@@ -67,12 +66,11 @@ export const dataEmpy = async ( req, res, next ) => {
 		req.register = true;
 	}
 
-	if ( destinationUrl === '' ) {
-		req.urlSend = false;
+	if ( destinationUrl !== '' ) {
+		req.urlSend = true;
 	}
 
-	if ( !req.register && !req.urlSend ) empy = false;
-	if ( !empy ) return res.status( 200 ).json( { error: 'Campos Vacios' } );
+	if ( !req.register && !req.urlSend ) return res.status( 200 ).json( { error: 'Campos Vacios' } );
 	if ( ( nick === '' || password === '' ) && req.register ) {
 		return res.status( 200 ).json( { error: 'Usuario y Contraseña Necesarios' } );
 	}

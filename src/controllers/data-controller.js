@@ -1,3 +1,4 @@
+import * as user from '../libs/infoUser';
 /** Metodo POST para guardar URLs
  * @type {function}
  * @param {Object} req - "request" de la ruta
@@ -6,6 +7,8 @@
 */
 
 export const sendUrl = async ( req, res ) => {
+	if ( !req.urlSend ) return user.userInfo( req, res );
+
 	const {
 		nick,
 		password,
@@ -16,7 +19,7 @@ export const sendUrl = async ( req, res ) => {
 	} = req.body;
 
 	res.status( 200 ).json( {
-		nick, password, shortUrl, destinationUrl, passwordUrl, views
+		nick, password, shortUrl, destinationUrl, passwordUrl, views, user: req.user
 	} );
 };
 
