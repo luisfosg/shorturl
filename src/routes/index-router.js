@@ -14,14 +14,15 @@ const router = Router();
 router.get( '/', urlCtrl.home );
 router.get( '/l/:code', urlCtrl.shortUrl );
 router.get( '/password', urlCtrl.password );
-router.get( '*', urlCtrl.pageNotFound );
+router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
+router.post( '/password', dataCtrl.password );
 router.post(
 	'/url',
 	[url.dataEmpy, url.userRegister],
 	dataCtrl.sendUrl
 );
 
-router.post( '/password', dataCtrl.password );
+router.get( '*', urlCtrl.pageNotFound );
 
 export default router;

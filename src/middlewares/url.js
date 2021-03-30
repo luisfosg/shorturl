@@ -1,9 +1,9 @@
-// @ts-nocheck
 import User from '../models/user';
+import * as encrypt from '../libs/bcrypt';
 
 const dataUser = async ( req, res, next, user ) => {
 	const { password } = req.body;
-	const matchPassword = await User.compararContrasenia( password, user.password );
+	const matchPassword = await encrypt.comparePass( password, user.password );
 
 	if ( matchPassword ) {
 		req.user = user;
@@ -35,7 +35,7 @@ export const userRegister = async ( req, res, next ) => {
 	} else {
 		const newUser = new User( {
 			nick,
-			password: await User.encriptarContrasenia( password ),
+			password: await encrypt.encriptPass( password ),
 		} );
 		const userSave = await newUser.save();
 

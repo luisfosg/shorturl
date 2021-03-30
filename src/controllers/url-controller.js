@@ -51,3 +51,19 @@ export const shortUrl = async ( req, res ) => {
 	res.status( 200 ).json( { info: code } );
 /* 	res.redirect( 'https://getbootstrap.com/docs/4.5/utilities/flex/' ); */
 };
+
+/** La Función deleteUrls, Elimina las Url Temporales de la Pagina
+ * @type {function}
+ * @param {Object} req - "request" de la ruta
+ * @param {Object} res - "response" de la ruta
+ * @param {function} res.status - función para enviar un estado http con json
+ * @param {function} res.redirect - función para redireccionar a otra pagina
+*/
+
+export const deleteUrls = async ( req, res ) => {
+	const { psw } = req.params;
+	if ( psw === process.env.DELETEPSW ) {
+		console.log( 'Eliminando Datos' );
+	}
+	res.status( 200 ).json( { message: 'Urls Temporales Eliminadas' } );
+};
