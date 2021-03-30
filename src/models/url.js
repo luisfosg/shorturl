@@ -4,7 +4,7 @@ const urlSchema = new Schema( {
 	path: { type: String, unique: true },
 	url: { type: String },
 	password: { type: String },
-	views: { type: Number },
+	views: { type: String },
 	qr: { type: String },
 	idUser: { type: String }
 }, {

@@ -12,6 +12,8 @@ export const home = async ( req, res ) => {
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
 	host = `${host}/l/`;
 
+	app.set( 'host', host );
+
 	res.render( 'home', { host } );
 };
 
@@ -63,7 +65,8 @@ export const shortUrl = async ( req, res ) => {
 export const deleteUrls = async ( req, res ) => {
 	const { psw } = req.params;
 	if ( psw === process.env.DELETEPSW ) {
-		console.log( 'Eliminando Datos' );
+		res.status( 200 ).json( { message: 'Urls Temporales Eliminadas' } );
+	} else {
+		res.status( 200 ).json( { message: 'Error' } );
 	}
-	res.status( 200 ).json( { message: 'Urls Temporales Eliminadas' } );
 };
