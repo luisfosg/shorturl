@@ -1,5 +1,7 @@
 import app from '../app';
 
+import UrlTemp from '../models/urlTemp';
+
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
  * @param {Object} req - "request" de la ruta
@@ -65,8 +67,9 @@ export const shortUrl = async ( req, res ) => {
 export const deleteUrls = async ( req, res ) => {
 	const { psw } = req.params;
 	if ( psw === process.env.DELETEPSW ) {
+		await UrlTemp.deleteMany( { key: 'tmp' } );
 		res.status( 200 ).json( { message: 'Urls Temporales Eliminadas' } );
 	} else {
-		res.status( 200 ).json( { message: 'Error' } );
+		pageNotFound( req, res );
 	}
 };
