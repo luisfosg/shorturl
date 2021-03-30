@@ -1,3 +1,4 @@
+// @ts-nocheck
 import app from '../app';
 
 import UrlTemp from '../models/urlTemp';
@@ -51,9 +52,13 @@ export const pageNotFound = async ( _req, res ) => {
 
 export const shortUrl = async ( req, res ) => {
 	const { code } = req.params;
+	const url = await UrlTemp.findOne( { path: code } );
 
-	res.status( 200 ).json( { info: code } );
-/* 	res.redirect( 'https://getbootstrap.com/docs/4.5/utilities/flex/' ); */
+	if ( url ) {
+		res.redirect( url.url );
+	} else {
+		pageNotFound( req, res );
+	}
 };
 
 /** La Función deleteUrls, Elimina las Url Temporales de la Pagina
