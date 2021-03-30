@@ -1,27 +1,50 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import * as user from '../libs/infoUser';
+
+const getCode = async ( type ) => {
+	let code = '';
+	if ( type === 'tmp' ) {
+		code = uuidv4();
+		code = code.substr( 0, 4 );
+		code += '-tmp';
+	} else {
+		code = uuidv4();
+		code = code.substr( 0, 4 );
+	}
+	return code;
+};
 
 const withUser = async ( req, res ) => {
 	const {
-		nick,
-		password,
-		shortUrl,
 		destinationUrl,
 		passwordUrl,
 		views
 	} = req.body;
 
+	let { shortUrl } = req.body;
+
+	if ( shortUrl === '' ) {
+		shortUrl = await getCode( 'user' );
+	}
+
 	res.status( 200 ).json( {
-		nick, password, shortUrl, destinationUrl, passwordUrl, views, user: req.user
+		shortUrl, destinationUrl, passwordUrl, views, user: req.user
 	} );
 };
 
 const withoutUser = async ( req, res ) => {
 	const {
-		shortUrl,
 		destinationUrl,
 		passwordUrl,
 		views
 	} = req.body;
+
+	let { shortUrl } = req.body;
+
+	if ( shortUrl === '' ) {
+		shortUrl = await getCode( 'tmp' );
+	}
 
 	res.status( 200 ).json( {
 		shortUrl, destinationUrl, passwordUrl, views
