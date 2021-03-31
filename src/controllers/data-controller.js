@@ -147,7 +147,6 @@ export const password = async ( req, res ) => {
 					const { views } = url;
 					let num = parseInt( views, 10 );
 					num -= 1;
-					console.log( num );
 					await UrlTemp.findByIdAndUpdate( url._id, { views: num } );
 				}
 				res.redirect( url.url );

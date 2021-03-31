@@ -50,8 +50,11 @@ export const shortUrl = async ( req, res ) => {
 			res.render( 'password', { path, error } );
 		} else {
 			if ( url.views !== '' ) {
+				if ( url.views === '0' ) return res.render( 'notViews' );
 				const { views } = url;
-				console.log( views );
+				let num = parseInt( views, 10 );
+				num -= 1;
+				await UrlTemp.findByIdAndUpdate( url._id, { views: num } );
 			}
 			res.redirect( url.url );
 		}
