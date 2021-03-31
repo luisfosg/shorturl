@@ -43,6 +43,11 @@ const withUser = async ( req, res ) => {
 
 	if ( shortUrl === '' ) {
 		shortUrl = await getCode( 'user' );
+	} else {
+		const getUrl = await Url.findOne( { path: shortUrl } );
+		if ( getUrl ) {
+			return res.status( 200 ).json( { error: 'La Url Ingresada ya Existe' } );
+		}
 	}
 
 	res.status( 200 ).json( {
@@ -62,6 +67,7 @@ const withoutUser = async ( req, res ) => {
 	if ( shortUrl === '' ) {
 		shortUrl = await getCode( 'tmp' );
 	} else {
+		shortUrl += '-tmp';
 		const getUrl = await UrlTemp.findOne( { path: shortUrl } );
 		if ( getUrl ) {
 			return res.status( 200 ).json( { error: 'La Url Ingresada ya Existe' } );
