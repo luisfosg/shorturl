@@ -142,13 +142,21 @@ export const password = async ( req, res ) => {
 		if ( url.password !== '' ) {
 			const matchPassword = await encrypt.comparePass( password, url.password );
 			if ( matchPassword ) {
+				if ( url.views !== '' ) {
+					if ( url.views === '0' ) return res.render( 'notViews' );
+					const { views } = url;
+					let num = parseInt( views, 10 );
+					num -= 1;
+					console.log( num );
+					await UrlTemp.findByIdAndUpdate( url._id, { views: num } );
+				}
 				res.redirect( url.url );
 			} else {
 				const error = 'true';
 				res.render( 'password', { path, error } );
 			}
 		} else {
-			res.redirect( url.url );
+			res.redirect( `/l/${path}` );
 		}
 	} else {
 		res.redirect( '/notfound' );

@@ -49,6 +49,10 @@ export const shortUrl = async ( req, res ) => {
 			const { path } = url;
 			res.render( 'password', { path, error } );
 		} else {
+			if ( url.views !== '' ) {
+				const { views } = url;
+				console.log( views );
+			}
 			res.redirect( url.url );
 		}
 	} else {
