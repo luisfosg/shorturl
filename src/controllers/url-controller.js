@@ -20,17 +20,6 @@ export const home = async ( req, res ) => {
 	res.render( 'home', { host } );
 };
 
-/** La Función Password, Renderiza la solicitud para ingresar la contraseña
- * @type {function}
- * @param {Object} _req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.render - función para renderizar el html
-*/
-
-export const password = async ( _req, res ) => {
-	res.render( 'password' );
-};
-
 /** La Función pageNotFound, la ruta ingresada no fue encontrada
  * @type {function}
  * @param {Object} _req - "request" de la ruta
@@ -55,7 +44,13 @@ export const shortUrl = async ( req, res ) => {
 	const url = await UrlTemp.findOne( { path: code } );
 
 	if ( url ) {
-		res.redirect( url.url );
+		if ( url.password !== '' ) {
+			const error = 'false';
+			const { path } = url;
+			res.render( 'password', { path, error } );
+		} else {
+			res.redirect( url.url );
+		}
 	} else {
 		pageNotFound( req, res );
 	}

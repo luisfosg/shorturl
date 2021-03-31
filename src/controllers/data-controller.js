@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { v4 as uuidv4 } from 'uuid';
 import qrcode from 'qrcode';
 
@@ -77,6 +78,7 @@ const withoutUser = async ( req, res ) => {
 	if ( views !== '' ) {
 		try {
 			views = parseInt( views, 10 );
+			if ( views < 0 ) views = '';
 			views = views.toString();
 		} catch ( e ) {
 			views = '';
@@ -132,7 +134,23 @@ export const sendUrl = async ( req, res ) => {
 */
 
 export const password = async ( req, res ) => {
-	const data = req.body;
+	const { path, password } = req.body;
 
-	res.status( 200 ).json( data );
+	const url = await UrlTemp.findOne( { path } );
+
+	if ( url ) {
+		if ( url.password !== '' ) {
+			const matchPassword = await encrypt.comparePass( password, url.password );
+			if ( matchPassword ) {
+				res.redirect( url.url );
+			} else {
+				const error = 'true';
+				res.render( 'password', { path, error } );
+			}
+		} else {
+			res.redirect( url.url );
+		}
+	} else {
+		res.redirect( '/notfound' );
+	}
 };
