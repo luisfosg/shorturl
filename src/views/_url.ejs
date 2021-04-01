@@ -4,7 +4,7 @@
 		<div class="card-body text-center">
 
 			<strong class="text-secondary">Url: </strong>
-			<a target="_blank" href="http://<%= host %><%= saveUrl.path %>">https://<%= host %><%= saveUrl.path %></a>
+			<a target="_blank" href="<%= host %><%= saveUrl.path %>"><%= host %><%= saveUrl.path %></a>
 			<br><br>
 			<strong class="text-secondary">Views:</strong>
 			<% if (saveUrl.views === '') { %> Unlimited
@@ -20,7 +20,12 @@
 			<% } else { %> <strong class="text-secondary">User: </strong> <%= saveUrl.user %> <% } %>
 			<br><br>
 
-			<strong class="text-secondary">Url Path: </strong> <a target="_blank" href="<%= saveUrl.url %>"><%= saveUrl.url %></a>
+			<strong class="text-secondary">Url Path: </strong>
+			<% if (saveUrl.url.includes( 'http' )) { %>
+				<a target="_blank" href="<%= saveUrl.url %>"><%= saveUrl.url %></a>
+			<% } else { %>
+				<a target="_blank" href="http://<%= saveUrl.url %>"><%= saveUrl.url %></a>
+			<% } %>
 			<br>
 
 			<img class="img-url" src="<%= saveUrl.qr %>" alt="<%= saveUrl.path %>">
