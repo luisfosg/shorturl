@@ -17,7 +17,7 @@ router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
 router.post( '/password', dataCtrl.password );
 router.post(
-	'/url',
+	'/',
 	[url.dataEmpy, url.userRegister],
 	dataCtrl.sendUrl
 );

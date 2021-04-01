@@ -1,0 +1,41 @@
+// @ts-nocheck
+import * as encrypt from './bcrypt';
+
+import Url from '../models/url';
+import UrlTemp from '../models/urlTemp';
+
+const views = async ( res, url, Model ) => {
+	if ( url.views !== '' ) {
+		if ( url.views === '0' ) return res.render( 'notViews' );
+		const { views } = url;
+		let num = parseInt( views, 10 );
+		num -= 1;
+		await Model.findByIdAndUpdate( url._id, { views: num } );
+	}
+	res.redirect( url.url );
+};
+
+export const redirectWithUser = async ( req, res ) => {
+
+};
+
+export const redirectWithoutUser = async ( req, res, error ) => {
+	const { path, password } = req.body;
+
+	const url = await UrlTemp.findOne( { path } );
+
+	if ( url ) {
+		if ( url.password !== '' ) {
+			const matchPassword = await encrypt.comparePass( password, url.password );
+			if ( matchPassword ) {
+				views( res, url, UrlTemp );
+			} else {
+				res.render( 'password', { path, error } );
+			}
+		} else {
+			views( res, url, UrlTemp );
+		}
+	} else {
+		res.redirect( '/notfound' );
+	}
+};

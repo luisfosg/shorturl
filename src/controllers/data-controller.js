@@ -10,6 +10,8 @@ import * as encrypt from '../libs/bcrypt';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
+import { redirectWithUser, redirectWithoutUser } from '../libs/redirect';
+
 const getCode = async ( type ) => {
 	let code = '';
 	if ( type === 'tmp' ) {
@@ -134,30 +136,12 @@ export const sendUrl = async ( req, res ) => {
 */
 
 export const password = async ( req, res ) => {
-	const { path, password } = req.body;
+	const { path } = req.body;
+	const error = 'true';
 
-	const url = await UrlTemp.findOne( { path } );
-
-	if ( url ) {
-		if ( url.password !== '' ) {
-			const matchPassword = await encrypt.comparePass( password, url.password );
-			if ( matchPassword ) {
-				if ( url.views !== '' ) {
-					if ( url.views === '0' ) return res.render( 'notViews' );
-					const { views } = url;
-					let num = parseInt( views, 10 );
-					num -= 1;
-					await UrlTemp.findByIdAndUpdate( url._id, { views: num } );
-				}
-				res.redirect( url.url );
-			} else {
-				const error = 'true';
-				res.render( 'password', { path, error } );
-			}
-		} else {
-			res.redirect( `/l/${path}` );
-		}
+	if ( path.includes( '-tmp' ) ) {
+		redirectWithoutUser( req, res, error );
 	} else {
-		res.redirect( '/notfound' );
+		redirectWithUser( req, res );
 	}
 };

@@ -1,7 +1,7 @@
-// @ts-nocheck
 import app from '../app';
 
 import UrlTemp from '../models/urlTemp';
+import { redirectWithUser, redirectWithoutUser } from '../libs/redirect';
 
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
@@ -41,25 +41,14 @@ export const pageNotFound = async ( _req, res ) => {
 
 export const shortUrl = async ( req, res ) => {
 	const { code } = req.params;
-	const url = await UrlTemp.findOne( { path: code } );
+	req.body.path = code;
+	req.body.password = '';
+	const error = 'false';
 
-	if ( url ) {
-		if ( url.password !== '' ) {
-			const error = 'false';
-			const { path } = url;
-			res.render( 'password', { path, error } );
-		} else {
-			if ( url.views !== '' ) {
-				if ( url.views === '0' ) return res.render( 'notViews' );
-				const { views } = url;
-				let num = parseInt( views, 10 );
-				num -= 1;
-				await UrlTemp.findByIdAndUpdate( url._id, { views: num } );
-			}
-			res.redirect( url.url );
-		}
+	if ( code.includes( '-tmp' ) ) {
+		redirectWithoutUser( req, res, error );
 	} else {
-		pageNotFound( req, res );
+		redirectWithUser( req, res );
 	}
 };
 
