@@ -39,23 +39,62 @@ const getCode = async ( type ) => {
 const withUser = async ( req, res ) => {
 	const {
 		destinationUrl,
-		passwordUrl,
-		views
+		passwordUrl
 	} = req.body;
 
-	let { shortUrl } = req.body;
+	let { shortUrl, views } = req.body;
+	let password;
 
 	if ( shortUrl === '' ) {
 		shortUrl = await getCode( 'user' );
 	} else {
 		const getUrl = await Url.findOne( { path: shortUrl } );
 		if ( getUrl ) {
-			return errorMsg( req, res, 'La Url Ingresada ya Existe' );
+			return errorMsg( req, res, 'El Short Url Ingresado ya Existe' );
 		}
 	}
 
-	res.status( 200 ).json( {
-		shortUrl, destinationUrl, passwordUrl, views, user: req.user
+	if ( views !== '' ) {
+		try {
+			views = parseInt( views, 10 );
+			if ( views < 0 ) views = '';
+			views = views.toString();
+		} catch ( e ) {
+			views = '';
+		}
+	}
+
+	if ( passwordUrl === '' ) {
+		password = '';
+	} else {
+		password = await encrypt.encriptPass( passwordUrl );
+	}
+
+	let qrUrl = app.get( 'host' );
+	qrUrl += shortUrl;
+
+	const qr = await qrcode.toDataURL( qrUrl );
+
+	const newUrlTmp = new Url( {
+		path: shortUrl,
+		url: destinationUrl,
+		password,
+		views,
+		qr,
+		idUser: req.user._id
+	} );
+
+	const saveUrl = await newUrlTmp.save();
+	saveUrl.user = req.user.nick;
+	const host = app.get( 'host' );
+	const error = '';
+	const data = '';
+
+	res.render( 'home', {
+		host,
+		saveUrl,
+		error,
+		data
 	} );
 };
 
@@ -106,6 +145,7 @@ const withoutUser = async ( req, res ) => {
 		views,
 		qr
 	} );
+
 	const saveUrl = await newUrlTmp.save();
 	const host = app.get( 'host' );
 	const error = '';
