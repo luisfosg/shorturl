@@ -1,5 +1,3 @@
-import os from 'os';
-
 import app from '../app';
 
 export const errorMsg = async ( req, res, msg ) => {
@@ -21,12 +19,9 @@ export const errorMsg = async ( req, res, msg ) => {
 		password
 	};
 
-	console.log( os.hostname() );
-
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
-	host = `${host}/l/`;
-	req.socket.encrypted ? host = `https://${host}` : host = `http://${host}`;
+	host = `${ req.protocol }://${ host }/l/`;
 
 	const saveUrl = '';
 	const error = msg;
