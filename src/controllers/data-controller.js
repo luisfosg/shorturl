@@ -70,7 +70,11 @@ const withUser = async ( req, res ) => {
 		password = await encrypt.encriptPass( passwordUrl );
 	}
 
-	let qrUrl = app.get( 'host' );
+	let host = req.hostname;
+	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
+	host = `${host}/l/`;
+
+	let qrUrl = host;
 	qrUrl += shortUrl;
 
 	const qr = await qrcode.toDataURL( qrUrl );
@@ -86,7 +90,6 @@ const withUser = async ( req, res ) => {
 
 	const saveUrl = await newUrlTmp.save();
 	saveUrl.user = req.user.nick;
-	const host = app.get( 'host' );
 	const error = '';
 	const data = '';
 
@@ -133,7 +136,11 @@ const withoutUser = async ( req, res ) => {
 		password = await encrypt.encriptPass( passwordUrl );
 	}
 
-	let qrUrl = app.get( 'host' );
+	let host = req.hostname;
+	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
+	host = `${host}/l/`;
+
+	let qrUrl = host;
 	qrUrl += shortUrl;
 
 	const qr = await qrcode.toDataURL( qrUrl );
@@ -147,7 +154,6 @@ const withoutUser = async ( req, res ) => {
 	} );
 
 	const saveUrl = await newUrlTmp.save();
-	const host = app.get( 'host' );
 	const error = '';
 	const data = '';
 

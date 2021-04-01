@@ -53,6 +53,7 @@ export const pageNotFound = async ( _req, res ) => {
 
 export const shortUrl = async ( req, res ) => {
 	const { code } = req.params;
+
 	req.body.path = code;
 	req.body.password = '';
 	const error = 'false';

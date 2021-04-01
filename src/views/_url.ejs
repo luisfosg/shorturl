@@ -17,7 +17,7 @@
 			<br>
 
 			<% if (saveUrl.path.includes( '-tmp' )) { %> <strong class="text-secondary">Type: </strong> Temporary
-			<% } else { %> <strong>User: </strong> <%= saveUrl.user %> <% } %>
+			<% } else { %> <strong class="text-secondary">User: </strong> <%= saveUrl.user %> <% } %>
 			<br><br>
 
 			<strong class="text-secondary">Url Path: </strong> <a target="_blank" href="<%= saveUrl.url %>"><%= saveUrl.url %></a>

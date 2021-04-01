@@ -9,6 +9,9 @@ const views = async ( res, url, Model ) => {
 		num -= 1;
 		await Model.findByIdAndUpdate( url._id, { views: num } );
 	}
+	if ( !url.url.includes( 'http' ) ) {
+		url.url = `http://${ url.url }`;
+	}
 	res.redirect( url.url );
 };
 
