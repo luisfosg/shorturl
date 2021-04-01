@@ -17,7 +17,8 @@ export const home = async ( req, res ) => {
 
 	app.set( 'host', host );
 
-	res.render( 'home', { host } );
+	const saveUrl = '';
+	res.render( 'home', { host, saveUrl } );
 };
 
 /** La Función pageNotFound, la ruta ingresada no fue encontrada

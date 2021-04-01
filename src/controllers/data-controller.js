@@ -105,10 +105,10 @@ const withoutUser = async ( req, res ) => {
 		views,
 		qr
 	} );
+	const saveUrl = await newUrlTmp.save();
+	const host = app.get( 'host' );
 
-	const saveUrlTmp = await newUrlTmp.save();
-
-	res.status( 200 ).json( saveUrlTmp );
+	res.render( 'home', { host, saveUrl } );
 };
 
 /** Metodo POST para guardar URLs

@@ -1,13 +1,30 @@
 <div class="col-md-6 d-flex justify-content-center">
 	<div class="card border-primary mt-3 w-100">
 		<div class="card-header">Url data</div>
-		<div class="card-body text-primary">
-			<div class="alert alert-danger" role="alert">
-				Aun esta en Etapa de Desarrollo!.
-			  </div>
-			<ol>
-				<li>Si crea una url Temporal, tendra al final de la url un acronimo -tmp</li>
-			</ol>
+		<div class="card-body text-center">
+
+			<strong class="text-secondary">Url: </strong>
+			<a target="_blank" href="http://<%= host %><%= saveUrl.path %>">https://<%= host %><%= saveUrl.path %></a>
+			<br><br>
+			<strong class="text-secondary">Views:</strong>
+			<% if (saveUrl.views === '') { %> Unlimited
+			<% } else { %> <%= saveUrl.views %> <% } %>
+			<br>
+
+			<strong class="text-secondary">Password:</strong>
+			<% if (saveUrl.password === '') { %> none
+			<% } else { %> yes <% } %>
+			<br>
+
+			<% if (saveUrl.path.includes( '-tmp' )) { %> <strong class="text-secondary">Type: </strong> Temporary
+			<% } else { %> <strong>User: </strong> <% } %>
+			<br><br>
+
+			<strong>Url Path: </strong> <a target="_blank" href="<%= saveUrl.url %>"><%= saveUrl.url %></a>
+			<br>
+
+			<img class="img-url" src="<%= saveUrl.qr %>" alt="<%= saveUrl.path %>">
+
 		</div>
 	</div>
 </div>

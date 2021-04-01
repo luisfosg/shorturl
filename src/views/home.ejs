@@ -4,7 +4,11 @@
 	<%- include( '_nav' ); -%>
 	<div class="row">
 		<%- include( '_form' ); -%>
-		<%- include( '_url' ); -%>
+		<% if (saveUrl === '') { %>
+			<%- include( '_urlinfo' ); -%>
+		<% } else { %>
+			<%- include( '_url' ); -%>
+		<% } %>
 	</div>
 	<script src="/js/main.js"></script>
 </body>

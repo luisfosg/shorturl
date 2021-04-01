@@ -29,6 +29,24 @@ footer {
 	}
 }
 
+.img-url {
+	width: 40%;
+	image-rendering: pixelated;
+}
+
+@media (max-width: 1077px) {
+	.img-url {
+		width: 60%;
+	}
+}
+
+@media (max-width: 500px) {
+	.img-url {
+		width: 100%;
+	}
+}
+
+
 // =============================
 a {
 	text-decoration: none;
