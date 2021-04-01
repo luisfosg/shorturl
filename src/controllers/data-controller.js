@@ -74,7 +74,7 @@ const withoutUser = async ( req, res ) => {
 		shortUrl += '-tmp';
 		const getUrl = await UrlTemp.findOne( { path: shortUrl } );
 		if ( getUrl ) {
-			return errorMsg( req, res, 'La Url Ingresada ya Existe' );
+			return errorMsg( req, res, 'El Short Url Ingresado ya Existe' );
 		}
 	}
 

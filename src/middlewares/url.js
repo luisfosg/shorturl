@@ -71,7 +71,7 @@ export const dataEmpy = async ( req, res, next ) => {
 		req.urlSend = true;
 	}
 
-	if ( !req.register && !req.urlSend ) return errorMsg( req, res, 'Campos Importantes Vacios' );
+	if ( !req.register && !req.urlSend ) return errorMsg( req, res, 'Faltan Datos Importantes' );
 	if ( ( nick === '' || password === '' ) && req.register ) {
 		return errorMsg( req, res, 'Usuario y Contraseña Necesarios' );
 	}
