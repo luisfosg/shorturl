@@ -1,4 +1,6 @@
 // @ts-nocheck
+import app from '../app';
+
 import * as encrypt from './bcrypt';
 
 const views = async ( res, url, Model ) => {
@@ -34,4 +36,16 @@ export const redirectUrl = async ( req, res, error, Model ) => {
 	} else {
 		res.redirect( '/notfound' );
 	}
+};
+
+export const getHost = async ( req, _res ) => {
+	let host = req.hostname;
+	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
+	if ( req.secure ) {
+		host = `${ req.protocol }s://${ host }/l/`;
+	} else {
+		host = `${ req.protocol }://${ host }/l/`;
+	}
+
+	return host;
 };

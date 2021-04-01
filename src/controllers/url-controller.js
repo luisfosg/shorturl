@@ -1,9 +1,7 @@
-import app from '../app';
-
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { redirectUrl } from '../libs/redirect';
+import { getHost, redirectUrl } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
 
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
@@ -14,12 +12,7 @@ import { errorMsg } from '../libs/error';
 */
 
 export const home = async ( req, res ) => {
-	let host = req.hostname;
-	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
-	host = `${ req.protocol }://${ host }/l/`;
-
-	app.set( 'host', host );
-
+	const host = await getHost( req, res );
 	const saveUrl = '';
 	const error = '';
 	const data = '';

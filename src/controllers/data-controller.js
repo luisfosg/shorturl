@@ -2,15 +2,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import qrcode from 'qrcode';
 
-import app from '../app';
-
 import * as user from '../libs/infoUser';
 import * as encrypt from '../libs/bcrypt';
 
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { redirectUrl } from '../libs/redirect';
+import { getHost, redirectUrl } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
 
 const getCode = async ( type ) => {
@@ -70,10 +68,7 @@ const withUser = async ( req, res ) => {
 		password = await encrypt.encriptPass( passwordUrl );
 	}
 
-	let host = req.hostname;
-	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
-	host = `${ req.protocol }://${ host }/l/`;
-
+	const host = await getHost( req, res );
 	let qrUrl = host;
 	qrUrl += shortUrl;
 
@@ -136,10 +131,7 @@ const withoutUser = async ( req, res ) => {
 		password = await encrypt.encriptPass( passwordUrl );
 	}
 
-	let host = req.hostname;
-	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
-	host = `${ req.protocol }://${ host }/l/`;
-
+	const host = await getHost( req, res );
 	let qrUrl = host;
 	qrUrl += shortUrl;
 

@@ -1,4 +1,4 @@
-import app from '../app';
+import { getHost } from './redirect';
 
 export const errorMsg = async ( req, res, msg ) => {
 	const {
@@ -19,9 +19,7 @@ export const errorMsg = async ( req, res, msg ) => {
 		password
 	};
 
-	let host = req.hostname;
-	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
-	host = `${ req.protocol }://${ host }/l/`;
+	const host = await getHost( req, res );
 
 	const saveUrl = '';
 	const error = msg;
