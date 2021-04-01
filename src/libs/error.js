@@ -22,6 +22,7 @@ export const errorMsg = async ( req, res, msg ) => {
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
 	host = `${host}/l/`;
+	req.socket.encrypted ? host = `https://${host}` : host = `http://${host}`;
 
 	const saveUrl = '';
 	const error = msg;

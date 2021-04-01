@@ -73,6 +73,7 @@ const withUser = async ( req, res ) => {
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
 	host = `${host}/l/`;
+	req.socket.encrypted ? host = `https://${host}` : host = `http://${host}`;
 
 	let qrUrl = host;
 	qrUrl += shortUrl;
@@ -139,6 +140,7 @@ const withoutUser = async ( req, res ) => {
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
 	host = `${host}/l/`;
+	req.socket.encrypted ? host = `https://${host}` : host = `http://${host}`;
 
 	let qrUrl = host;
 	qrUrl += shortUrl;

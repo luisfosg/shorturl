@@ -17,6 +17,7 @@ export const home = async ( req, res ) => {
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
 	host = `${host}/l/`;
+	req.socket.encrypted ? host = `https://${host}` : host = `http://${host}`;
 
 	app.set( 'host', host );
 
