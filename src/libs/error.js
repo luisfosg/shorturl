@@ -1,3 +1,5 @@
+import os from 'os';
+
 import app from '../app';
 
 export const errorMsg = async ( req, res, msg ) => {
@@ -18,6 +20,8 @@ export const errorMsg = async ( req, res, msg ) => {
 		nick,
 		password
 	};
+
+	console.log( os.hostname() );
 
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
