@@ -1,7 +1,10 @@
 import app from '../app';
 
+import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
-import { redirectWithUser, redirectWithoutUser } from '../libs/redirect';
+
+import { redirectUrl } from '../libs/redirect';
+import { errorMsg } from '../libs/error';
 
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
@@ -18,7 +21,15 @@ export const home = async ( req, res ) => {
 	app.set( 'host', host );
 
 	const saveUrl = '';
-	res.render( 'home', { host, saveUrl } );
+	const error = '';
+	const data = '';
+
+	res.render( 'home', {
+		host,
+		saveUrl,
+		error,
+		data
+	} );
 };
 
 /** La Función pageNotFound, la ruta ingresada no fue encontrada
@@ -47,9 +58,9 @@ export const shortUrl = async ( req, res ) => {
 	const error = 'false';
 
 	if ( code.includes( '-tmp' ) ) {
-		redirectWithoutUser( req, res, error );
+		redirectUrl( req, res, error, UrlTemp );
 	} else {
-		redirectWithUser( req, res );
+		redirectUrl( req, res, error, Url );
 	}
 };
 
@@ -65,7 +76,7 @@ export const deleteUrls = async ( req, res ) => {
 	const { psw } = req.params;
 	if ( psw === process.env.DELETEPSW ) {
 		await UrlTemp.deleteMany( { key: 'tmp' } );
-		res.status( 200 ).json( { message: 'Urls Temporales Eliminadas' } );
+		errorMsg( req, res, 'Url Temporales Eliminadas' );
 	} else {
 		pageNotFound( req, res );
 	}

@@ -1,14 +1,11 @@
 // @ts-nocheck
 
-let check;
-check = document.getElementById( 'watch' );
+const check = document.getElementById( 'watch' );
 
-check.addEventListener( 'change', hideOrShowPassword )
+check.addEventListener( 'change', hideOrShowPassword );
 
 function hideOrShowPassword() {
-	let password;
-
-	password = document.getElementById( 'passwordUrl' );
+	const password = document.getElementById( 'passwordUrl' );
 
 	if ( check.checked == false ) {
 		password.type = 'text';
@@ -16,3 +13,12 @@ function hideOrShowPassword() {
 		password.type = 'password';
 	}
 };
+
+const closed = document.getElementById( 'closee' );
+
+closed.addEventListener( 'click', closeAlert );
+
+function closeAlert() {
+	const alerta = document.getElementById( 'alerta' );
+	alerta.remove();
+}

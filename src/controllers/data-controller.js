@@ -10,7 +10,8 @@ import * as encrypt from '../libs/bcrypt';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { redirectWithUser, redirectWithoutUser } from '../libs/redirect';
+import { redirectUrl } from '../libs/redirect';
+import { errorMsg } from '../libs/error';
 
 const getCode = async ( type ) => {
 	let code = '';
@@ -49,7 +50,7 @@ const withUser = async ( req, res ) => {
 	} else {
 		const getUrl = await Url.findOne( { path: shortUrl } );
 		if ( getUrl ) {
-			return res.status( 200 ).json( { error: 'La Url Ingresada ya Existe' } );
+			return errorMsg( req, res, 'La Url Ingresada ya Existe' );
 		}
 	}
 
@@ -73,7 +74,7 @@ const withoutUser = async ( req, res ) => {
 		shortUrl += '-tmp';
 		const getUrl = await UrlTemp.findOne( { path: shortUrl } );
 		if ( getUrl ) {
-			return res.status( 200 ).json( { error: 'La Url Ingresada ya Existe' } );
+			return errorMsg( req, res, 'La Url Ingresada ya Existe' );
 		}
 	}
 
@@ -107,8 +108,15 @@ const withoutUser = async ( req, res ) => {
 	} );
 	const saveUrl = await newUrlTmp.save();
 	const host = app.get( 'host' );
+	const error = '';
+	const data = '';
 
-	res.render( 'home', { host, saveUrl } );
+	res.render( 'home', {
+		host,
+		saveUrl,
+		error,
+		data
+	} );
 };
 
 /** Metodo POST para guardar URLs
@@ -140,8 +148,8 @@ export const password = async ( req, res ) => {
 	const error = 'true';
 
 	if ( path.includes( '-tmp' ) ) {
-		redirectWithoutUser( req, res, error );
+		redirectUrl( req, res, error, UrlTemp );
 	} else {
-		redirectWithUser( req, res );
+		redirectUrl( req, res, error, Url );
 	}
 };

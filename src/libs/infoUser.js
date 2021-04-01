@@ -1,3 +1,5 @@
+import { errorMsg } from './error';
+
 export const userInfo = async ( req, res ) => {
-	res.status( 200 ).json( { message: 'Dando informacion del usuario' } );
+	errorMsg( req, res, 'Dando Informacion del Usuario' );
 };

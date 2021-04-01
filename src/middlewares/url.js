@@ -1,5 +1,6 @@
 import User from '../models/user';
 import * as encrypt from '../libs/bcrypt';
+import { errorMsg } from '../libs/error';
 
 const dataUser = async ( req, res, next, user ) => {
 	const { password } = req.body;
@@ -9,7 +10,7 @@ const dataUser = async ( req, res, next, user ) => {
 		req.user = user;
 		next();
 	} else {
-		res.status( 200 ).json( { error: 'Contraseña Incorrecta, Ese usuario ya Existe' } );
+		errorMsg( req, res, 'Contraseña Incorrecta, ese Usuario ya Existe' );
 	}
 };
 
@@ -70,9 +71,9 @@ export const dataEmpy = async ( req, res, next ) => {
 		req.urlSend = true;
 	}
 
-	if ( !req.register && !req.urlSend ) return res.status( 200 ).json( { error: 'Campos Vacios' } );
+	if ( !req.register && !req.urlSend ) return errorMsg( req, res, 'Campos Importantes Vacios' );
 	if ( ( nick === '' || password === '' ) && req.register ) {
-		return res.status( 200 ).json( { error: 'Usuario y Contraseña Necesarios' } );
+		return errorMsg( req, res, 'Usuario y Contraseña Necesarios' );
 	}
 
 	next();

@@ -2,8 +2,15 @@
 
 <body>
 	<%- include( '_nav' ); -%>
+
 	<div class="row">
-		<%- include( '_form' ); -%>
+
+		<% if (data === '') { %>
+			<%- include( '_form' ); -%>
+		<% } else { %>
+			<%- include( '_forminfo' ); -%>
+		<% } %>
+
 		<% if (saveUrl === '') { %>
 			<%- include( '_urlinfo' ); -%>
 		<% } else { %>
