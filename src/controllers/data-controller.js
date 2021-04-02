@@ -9,7 +9,7 @@ import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
 import { getHost, redirectUrl } from '../libs/redirect';
-import { errorMsg } from '../libs/error';
+import { errorMsg, verifyUrl } from '../libs/error';
 
 const getCode = async ( type ) => {
 	let code = '';
@@ -34,7 +34,7 @@ const getCode = async ( type ) => {
 	return code;
 };
 
-const withUser = async ( req, res ) => {
+export const withUser = async ( req, res ) => {
 	const {
 		destinationUrl,
 		passwordUrl
@@ -96,7 +96,7 @@ const withUser = async ( req, res ) => {
 	} );
 };
 
-const withoutUser = async ( req, res ) => {
+export const withoutUser = async ( req, res ) => {
 	const {
 		destinationUrl,
 		passwordUrl
@@ -167,11 +167,9 @@ const withoutUser = async ( req, res ) => {
 export const sendUrl = async ( req, res ) => {
 	if ( !req.urlSend ) return user.userInfo( req, res );
 
-	if ( !req.register ) {
-		withoutUser( req, res );
-	} else {
-		withUser( req, res );
-	}
+	const { destinationUrl } = req.body;
+
+	verifyUrl( req, res, destinationUrl );
 };
 
 /** Metodo POST para guardar URLs
