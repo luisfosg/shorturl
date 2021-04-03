@@ -8,7 +8,7 @@ import * as encrypt from '../libs/bcrypt';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { getHost, redirectUrl } from '../libs/redirect';
+import { getShortUrl, getHost, redirectUrl } from '../libs/redirect';
 import { errorMsg, verifyUrl } from '../libs/error';
 
 const getCode = async ( type ) => {
@@ -46,6 +46,7 @@ export const withUser = async ( req, res ) => {
 	if ( shortUrl === '' ) {
 		shortUrl = await getCode( 'user' );
 	} else {
+		shortUrl = await getShortUrl( shortUrl );
 		const getUrl = await Url.findOne( { path: shortUrl } );
 		if ( getUrl ) {
 			return errorMsg( req, res, 'El Short Url Ingresado ya Existe' );
@@ -109,6 +110,7 @@ export const withoutUser = async ( req, res ) => {
 		shortUrl = await getCode( 'tmp' );
 	} else {
 		shortUrl += '-tmp';
+		shortUrl = await getShortUrl( shortUrl );
 		const getUrl = await UrlTemp.findOne( { path: shortUrl } );
 		if ( getUrl ) {
 			return errorMsg( req, res, 'El Short Url Ingresado ya Existe' );

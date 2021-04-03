@@ -49,3 +49,17 @@ export const getHost = async ( req, _res ) => {
 
 	return host;
 };
+
+// ===============================================
+const invalidSimbolsOne = / |~|;|,|:|#|_|=|¡|¿|'|&|@|%|!|°|"/g;
+const invalidSimbolsTwo = /[*]|[\]]|[\\]|[.]|[[]|[{]|[}]|[+]|[?]|[(]|[)]|[<]|[>]|[|]|[$]|[/]/g;
+// ===============================================
+
+export const getShortUrl = async ( url ) => {
+	url = url.replace( invalidSimbolsOne, '-' );
+	url = url.replace( invalidSimbolsTwo, '-' );
+	url = url.replace( /ñ/g, 'n' );
+	url = url.replace( /--|---|----|-----|------/g, '-' );
+
+	return url;
+};
