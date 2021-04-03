@@ -6,6 +6,7 @@ const urlSchema = new Schema( {
 	password: { type: String },
 	views: { type: String },
 	qr: { type: String },
+	clicks: { type: Number, default: 0 },
 	idUser: { type: String }
 }, {
 	timestamps: true,

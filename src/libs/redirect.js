@@ -14,6 +14,11 @@ const views = async ( res, url, Model ) => {
 	if ( !url.url.includes( 'http' ) ) {
 		url.url = `http://${ url.url }`;
 	}
+
+	if ( ( typeof url.clicks ) === 'number' ) {
+		const num = url.clicks + 1;
+		await Model.findByIdAndUpdate( url._id, { clicks: num } );
+	}
 	res.redirect( url.url );
 };
 
