@@ -3,9 +3,24 @@
 		<div class="card-header"><i class="fas fa-clipboard-list"></i> Url data</div>
 		<div class="card-body text-primary">
 
+			<% if(findUrl.length === 0) { %>
+				<div class="alert alert-primary" role="alert">
+					Actualmente No tiene Ninguna Url Asociada.
+				</div>
+			<% } %>
+
 			<% findUrl.forEach(function(url){ %>
-				<div class="card">
-					<%= url.path %>
+				<div class="border border-secondary rounded p-2 d-flex justify-content-between mb-2">
+					<div class="ml-3">
+						<% if (url.url.includes( 'http' )) { %>
+							<a target="_blank" class="text-info" href="<%= url.url %>"><i class="fas fa-paperclip"></i> <%= url.path %></a>
+						<% } else { %>
+							<a target="_blank" href="http://<%= url.url %>"><i class="fas fa-paperclip"></i> <%= url.path %></a>
+						<% } %>
+					</div>
+					<div class="mr-3">
+						<i class="fas fa-paperclip"></i> <%= url.path %>
+					</div>
 				</div>
 			<% }); %>
 

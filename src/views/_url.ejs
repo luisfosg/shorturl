@@ -6,6 +6,12 @@
 			<strong class="text-secondary">Url: </strong>
 			<a target="_blank" href="<%= host %><%= saveUrl.path %>"><%= host %><%= saveUrl.path %></a>
 			<br><br>
+
+			<% if (!saveUrl.path.includes( '-tmp' )) { %>
+				<strong class="text-secondary"><i class="far fa-eye"></i></strong> <%= saveUrl.clicks %>
+				<br>
+			<% } %>
+
 			<strong class="text-secondary">Views:</strong>
 			<% if (saveUrl.views === '') { %> Unlimited
 			<% } else { %> <%= saveUrl.views %> <% } %>
