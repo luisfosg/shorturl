@@ -149,13 +149,15 @@ export const withoutUser = async ( req, res ) => {
 
 	const saveUrl = await newUrlTmp.save();
 	const error = '';
+	const findUrl = '';
 	const data = '';
 
 	res.render( 'home', {
 		host,
 		saveUrl,
 		error,
-		data
+		data,
+		findUrl
 	} );
 };
 

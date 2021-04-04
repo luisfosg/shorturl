@@ -24,15 +24,16 @@ export const errorMsg = async ( req, res, msg ) => {
 	};
 
 	const host = await getHost( req, res );
-
 	const saveUrl = '';
+	const findUrl = '';
 	const error = msg;
 
 	res.render( 'home', {
 		host,
 		saveUrl,
 		error,
-		data
+		data,
+		findUrl
 	} );
 };
 

@@ -15,13 +15,15 @@ export const home = async ( req, res ) => {
 	const host = await getHost( req, res );
 	const saveUrl = '';
 	const error = '';
+	const findUrl = '';
 	const data = '';
 
 	res.render( 'home', {
 		host,
 		saveUrl,
 		error,
-		data
+		data,
+		findUrl
 	} );
 };
 

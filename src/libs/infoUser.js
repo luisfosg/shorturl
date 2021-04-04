@@ -1,10 +1,20 @@
 import Url from '../models/url';
-import { errorMsg } from './error';
+import { getHost } from './redirect';
 
 export const userInfo = async ( req, res ) => {
 	const { user } = req;
 	const findUrl = await Url.find( { idUser: user._id } );
 
-	console.log( findUrl );
-	errorMsg( req, res, 'Dando Informacion del Usuario' );
+	const host = await getHost( req, res );
+	const saveUrl = '';
+	const error = '';
+	const data = '';
+
+	res.render( 'home', {
+		host,
+		saveUrl,
+		error,
+		data,
+		findUrl
+	} );
 };

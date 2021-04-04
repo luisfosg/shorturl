@@ -12,7 +12,11 @@
 		<% } %>
 
 		<% if (saveUrl === '') { %>
-			<%- include( '_urlinfo' ); -%>
+			<% if (findUrl === '') { %>
+				<%- include( '_urlinfo' ); -%>
+			<% } else { %>
+				<%- include( '_urluser' ); -%>
+			<% } %>
 		<% } else { %>
 			<%- include( '_url' ); -%>
 		<% } %>

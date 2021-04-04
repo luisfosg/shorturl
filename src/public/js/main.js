@@ -16,7 +16,9 @@ function hideOrShowPassword() {
 
 const closed = document.getElementById( 'closee' );
 
-closed.addEventListener( 'click', closeAlert );
+if ( closed ) {
+	closed.addEventListener( 'click', closeAlert );
+}
 
 function closeAlert() {
 	const alerta = document.getElementById( 'alerta' );
