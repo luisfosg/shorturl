@@ -1,7 +1,7 @@
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { getHost, redirectUrl } from '../libs/redirect';
+import { redirectUrl, renderHome } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
 
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
@@ -12,19 +12,7 @@ import { errorMsg } from '../libs/error';
 */
 
 export const home = async ( req, res ) => {
-	const host = await getHost( req, res );
-	const saveUrl = '';
-	const error = '';
-	const findUrl = '';
-	const data = '';
-
-	res.render( 'home', {
-		host,
-		saveUrl,
-		error,
-		data,
-		findUrl
-	} );
+	renderHome( req, res );
 };
 
 /** La Función pageNotFound, la ruta ingresada no fue encontrada
@@ -76,4 +64,8 @@ export const deleteUrls = async ( req, res ) => {
 	} else {
 		pageNotFound( req, res );
 	}
+};
+
+export const viewUrl = async ( req, res ) => {
+	const { id } = req.params;
 };

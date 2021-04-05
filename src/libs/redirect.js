@@ -43,6 +43,8 @@ export const redirectUrl = async ( req, res, error, Model ) => {
 	}
 };
 
+/* ============================================================================================= */
+
 export const getHost = async ( req, _res ) => {
 	let host = req.hostname;
 	if ( host === 'localhost' ) host = `${ host }:${ app.get( 'port' ) }`;
@@ -53,6 +55,17 @@ export const getHost = async ( req, _res ) => {
 	}
 
 	return host;
+};
+
+export const renderHome = async ( req, res, saveUrl = '', findUrl = '', data = '', error = '' ) => {
+	const host = await getHost( req, res );
+	res.render( 'home', {
+		host,
+		saveUrl,
+		error,
+		data,
+		findUrl
+	} );
 };
 
 // ===============================================

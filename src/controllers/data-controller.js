@@ -8,7 +8,13 @@ import * as encrypt from '../libs/bcrypt';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { getShortUrl, getHost, redirectUrl } from '../libs/redirect';
+import {
+	getShortUrl,
+	getHost,
+	redirectUrl,
+	renderHome
+} from '../libs/redirect';
+
 import { errorMsg, verifyUrl } from '../libs/error';
 
 const getCode = async ( type ) => {
@@ -86,15 +92,8 @@ export const withUser = async ( req, res ) => {
 
 	const saveUrl = await newUrlTmp.save();
 	saveUrl.user = req.user.nick;
-	const error = '';
-	const data = '';
 
-	res.render( 'home', {
-		host,
-		saveUrl,
-		error,
-		data
-	} );
+	renderHome( req, res, saveUrl );
 };
 
 export const withoutUser = async ( req, res ) => {
@@ -147,18 +146,7 @@ export const withoutUser = async ( req, res ) => {
 		qr
 	} );
 
-	const saveUrl = await newUrlTmp.save();
-	const error = '';
-	const findUrl = '';
-	const data = '';
-
-	res.render( 'home', {
-		host,
-		saveUrl,
-		error,
-		data,
-		findUrl
-	} );
+	renderHome( req, res, await newUrlTmp.save() );
 };
 
 /** Metodo POST para guardar URLs

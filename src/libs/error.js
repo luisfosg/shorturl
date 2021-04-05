@@ -1,7 +1,7 @@
 // @ts-nocheck
 import urlExists from 'url-exists';
 
-import { getHost } from './redirect';
+import { renderHome } from './redirect';
 import { withUser, withoutUser } from '../controllers/data-controller';
 
 export const errorMsg = async ( req, res, msg ) => {
@@ -14,27 +14,14 @@ export const errorMsg = async ( req, res, msg ) => {
 		password
 	} = req.body;
 
-	const data = {
+	renderHome( req, res, '', '', {
 		destinationUrl,
 		passwordUrl,
 		views,
 		shortUrl,
 		nick,
 		password
-	};
-
-	const host = await getHost( req, res );
-	const saveUrl = '';
-	const findUrl = '';
-	const error = msg;
-
-	res.render( 'home', {
-		host,
-		saveUrl,
-		error,
-		data,
-		findUrl
-	} );
+	}, msg );
 };
 
 export const verifyUrl = async ( req, res, url ) => {

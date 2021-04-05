@@ -13,6 +13,7 @@ const router = Router();
 
 router.get( '/', urlCtrl.home );
 router.get( '/l/:code', urlCtrl.shortUrl );
+router.get( '/view/:id', urlCtrl.viewUrl );
 router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
 router.post( '/password', dataCtrl.password );
