@@ -23,6 +23,8 @@ router.post(
 	dataCtrl.sendUrl
 );
 
+router.delete( '/delete/:id', urlCtrl.deleteUrl );
+
 router.get( '*', urlCtrl.pageNotFound );
 
 export default router;

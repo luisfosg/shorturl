@@ -27,7 +27,7 @@
 						<a href="/edit/<%= url._id %>" class="text-info mr-2">
 							<i class="fas fa-pencil-alt"></i>
 						</a>
-						<a id="delete" class="text-danger alerta" value="<%= url._id %>">
+						<a id="delete" class="text-danger alerta" text="<%= url.path %>" value="<%= url._id %>">
 							<i class="fas fa-trash-alt"></i>
 						</a>
 					</div>
@@ -37,4 +37,5 @@
 		</div>
 	</div>
 </div>
+
 <script src="/js/sweetalert2.js"></script>

@@ -1,3 +1,5 @@
+// @ts-nocheck
+import User from '../models/user';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
@@ -66,6 +68,18 @@ export const deleteUrls = async ( req, res ) => {
 	}
 };
 
+export const deleteUrl = async ( req, res ) => {
+	const { id } = req.params;
+	const deleteUrl = await Url.findByIdAndDelete( id );
+
+	res.status( 200 ).json( deleteUrl );
+};
+
 export const viewUrl = async ( req, res ) => {
 	const { id } = req.params;
+	const saveUrl = await Url.findById( id );
+	const user = await User.findById( saveUrl.idUser );
+	saveUrl.user = user.nick;
+
+	renderHome( req, res, saveUrl );
 };

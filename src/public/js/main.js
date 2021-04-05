@@ -33,16 +33,17 @@ const buttonDelete = document.getElementsByClassName( 'alerta' );
 if ( buttonDelete ) {
 	for (let i = 0; i < buttonDelete.length; i++) {
 		const id = buttonDelete[i].getAttribute("value");
-		buttonDelete[i].addEventListener( 'click', function(){ viewAlert( id ) } );
+		const title = buttonDelete[i].getAttribute("text");
+		buttonDelete[i].addEventListener( 'click', function(){ viewAlert( id, title ) } );
 	}
 }
 
-function viewAlert( id ) {
+function viewAlert( id, title ) {
 	Swal.fire({
 		title: 'Eliminar',
 		icon: 'warning',
 		html:
-		  '¿ Desea Eliminar la Url Seleccionada ?',
+		`¿ Desea Eliminar la Url ${ title } ?`,
 		showDenyButton: true,
 		showCancelButton: true,
 		showConfirmButton: false,
@@ -50,10 +51,15 @@ function viewAlert( id ) {
 		cancelButtonText: `Cancelar`
 	}).then((result) => {
 		if (result.isDenied) {
-			window.location.href = `/delete/${ id }`;
+			fetch( `/delete/${ id }`, {
+				method: 'DELETE',
+			}).then(_res => {
+				location.reload();
+			})
 		}
 	})
 }
+
 /* ======================================================================== */
 
 const copyText = document.getElementsByClassName( 'copiarTexto' );
