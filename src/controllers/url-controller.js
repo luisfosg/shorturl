@@ -75,6 +75,29 @@ export const deleteUrl = async ( req, res ) => {
 	res.status( 200 ).json( deleteUrl );
 };
 
+export const editUrl = async ( req, res ) => {
+	const { id } = req.params;
+	const url = await Url.findById( id );
+	const user = await User.findById( url.idUser );
+
+	const { nick } = user;
+	const shortUrl = url.path;
+	const destinationUrl = url.url;
+	const { views } = url;
+
+	renderHome( req, res, '', '', {
+		id,
+		destinationUrl,
+		views,
+		shortUrl,
+		nick
+	}, '', 'true' );
+};
+
+export const editedUrl = async ( req, res ) => {
+	res.status( 200 ).json( req.body );
+};
+
 export const viewUrl = async ( req, res ) => {
 	const { id } = req.params;
 	const saveUrl = await Url.findById( id );

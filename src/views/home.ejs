@@ -8,7 +8,11 @@
 		<% if (data === '') { %>
 			<%- include( '_form' ); -%>
 		<% } else { %>
-			<%- include( '_forminfo' ); -%>
+			<% if (edit === '') { %>
+				<%- include( '_forminfo' ); -%>
+			<% } else { %>
+				<%- include( '_formedit' ); -%>
+			<% } %>
 		<% } %>
 
 		<% if (saveUrl === '') { %>

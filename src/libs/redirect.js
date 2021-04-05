@@ -57,14 +57,15 @@ export const getHost = async ( req, _res ) => {
 	return host;
 };
 
-export const renderHome = async ( req, res, saveUrl = '', findUrl = '', data = '', error = '' ) => {
+export const renderHome = async ( req, res, saveUrl = '', findUrl = '', data = '', error = '', edit = '' ) => {
 	const host = await getHost( req, res );
 	res.render( 'home', {
 		host,
 		saveUrl,
 		error,
 		data,
-		findUrl
+		findUrl,
+		edit
 	} );
 };
 

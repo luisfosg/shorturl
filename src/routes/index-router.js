@@ -14,6 +14,7 @@ const router = Router();
 router.get( '/', urlCtrl.home );
 router.get( '/l/:code', urlCtrl.shortUrl );
 router.get( '/view/:id', urlCtrl.viewUrl );
+router.get( '/edit/:id', urlCtrl.editUrl );
 router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
 router.post( '/password', dataCtrl.password );
@@ -23,6 +24,7 @@ router.post(
 	dataCtrl.sendUrl
 );
 
+router.put( '/edit/:id', urlCtrl.editedUrl );
 router.delete( '/delete/:id', urlCtrl.deleteUrl );
 
 router.get( '*', urlCtrl.pageNotFound );
