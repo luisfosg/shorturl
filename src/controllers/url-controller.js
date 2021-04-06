@@ -98,11 +98,10 @@ export const editUrl = async ( req, res ) => {
 export const editedUrl = async ( req, res ) => {
 	const {
 		nick,
-		password,
-		views,
-		passwordUrl,
-		shortUrl
+		password
 	} = req.body;
+	let { views, passwordUrl } = req.body;
+
 	const url = await Url.findById( req.params.id );
 	if ( !url ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
 
@@ -112,7 +111,27 @@ export const editedUrl = async ( req, res ) => {
 	const matchPassword = await encript.comparePass( password, user.password );
 	if ( !matchPassword ) return errorMsg( req, res, 'Contraseña Incorrecta', 'true' );
 
-	res.status( 200 ).json( { url, user } );
+	if ( views !== '' ) {
+		try {
+			views = parseInt( views, 10 );
+			if ( views < 0 ) views = '';
+			views = views.toString();
+		} catch ( e ) {
+			views = '';
+		}
+	}
+
+	if ( passwordUrl === '' ) {
+		passwordUrl = '';
+	} else {
+		passwordUrl = await encript.encriptPass( passwordUrl );
+	}
+	await Url.findByIdAndUpdate( url._id, {
+		views,
+		password: passwordUrl
+	} );
+
+	renderHome( req, res );
 };
 
 export const viewUrl = async ( req, res ) => {
