@@ -4,7 +4,7 @@ import urlExists from 'url-exists';
 import { renderHome } from './redirect';
 import { withUser, withoutUser } from '../controllers/data-controller';
 
-export const errorMsg = async ( req, res, msg ) => {
+export const errorMsg = async ( req, res, msg, edit = '' ) => {
 	const {
 		destinationUrl,
 		passwordUrl,
@@ -20,8 +20,9 @@ export const errorMsg = async ( req, res, msg ) => {
 		views,
 		shortUrl,
 		nick,
-		password
-	}, msg );
+		password,
+		id: req.params.id
+	}, msg, edit );
 };
 
 export const verifyUrl = async ( req, res, url ) => {

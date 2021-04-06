@@ -5,6 +5,7 @@ import UrlTemp from '../models/urlTemp';
 
 import { redirectUrl, renderHome } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
+import * as encript from '../libs/bcrypt';
 
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
@@ -95,7 +96,23 @@ export const editUrl = async ( req, res ) => {
 };
 
 export const editedUrl = async ( req, res ) => {
-	res.status( 200 ).json( req.body );
+	const {
+		nick,
+		password,
+		views,
+		passwordUrl,
+		shortUrl
+	} = req.body;
+	const url = await Url.findById( req.params.id );
+	if ( !url ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
+
+	const user = await User.findOne( { nick } );
+	if ( !user ) return errorMsg( req, res, 'Usuario no encontrado.', 'true' );
+
+	const matchPassword = await encript.comparePass( password, user.password );
+	if ( !matchPassword ) return errorMsg( req, res, 'Contraseña Incorrecta', 'true' );
+
+	res.status( 200 ).json( { url, user } );
 };
 
 export const viewUrl = async ( req, res ) => {

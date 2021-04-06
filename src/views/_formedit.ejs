@@ -19,17 +19,17 @@
 					<input type="text" class="form-control" placeholder="Nick *" name="nick" value="<%= data.nick %>" readonly>
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Password *" name="password" value="<%= data.password %>" autofocus>
+					<input type="password" class="form-control" placeholder="Password *" name="password" autofocus>
 				</div>
 				<hr>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text"> <%= host %> </span>
 					</div>
-					<input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="short_url" name="shortUrl" value="<%= data.shortUrl %>">
+					<input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="short_url" name="shortUrl" value="<%= data.shortUrl %>" readonly>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Destination Url *" name="destinationUrl" value="<%= data.destinationUrl %>">
+					<input type="text" class="form-control" placeholder="Destination Url *" name="destinationUrl" value="<%= data.destinationUrl %>" readonly>
 				</div>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
@@ -37,7 +37,7 @@
 							<input type="checkbox" id="watch">
 						</div>
 					</div>
-					<input type="text" class="form-control" id="passwordUrl" placeholder="Password Url" name="passwordUrl" value="<%= data.passwordUrl %>">
+					<input type="text" class="form-control" id="passwordUrl" placeholder="Password Url" name="passwordUrl">
 				</div>
 				<div class="form-group">
 					<input type="number" min="0" step="1" class="form-control" placeholder="Expire After Views" name="views" value="<%= data.views %>">
