@@ -86,3 +86,14 @@ function copyTheText(title, text) {
 		timer: 1500
 	})
 }
+
+/* ======================================================================== */
+const sendMsg = document.getElementById('message');
+
+if( sendMsg ) {
+	const msg = sendMsg.getAttribute('text');
+	Swal.fire({
+		title: msg,
+		timer: 1500
+	})
+}

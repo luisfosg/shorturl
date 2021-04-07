@@ -25,6 +25,12 @@
 			<%- include( '_url' ); -%>
 		<% } %>
 	</div>
+
+	<% if(msg !== '') { %>
+		<input id="message" type="hidden" text="<%= msg %> ">
+	<% } %>
+
+	<script src="/js/sweetalert2.js"></script>
 	<script src="/js/main.js"></script>
 </body>
 

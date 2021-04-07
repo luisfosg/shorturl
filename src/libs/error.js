@@ -14,7 +14,7 @@ export const errorMsg = async ( req, res, msg, edit = '' ) => {
 		password
 	} = req.body;
 
-	renderHome( req, res, '', '', {
+	renderHome( req, res, '', msg, '', '', {
 		destinationUrl,
 		passwordUrl,
 		views,
@@ -22,7 +22,7 @@ export const errorMsg = async ( req, res, msg, edit = '' ) => {
 		nick,
 		password,
 		id: req.params.id
-	}, msg, edit );
+	}, edit );
 };
 
 export const verifyUrl = async ( req, res, url ) => {
