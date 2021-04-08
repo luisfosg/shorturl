@@ -96,4 +96,6 @@ if( sendMsg ) {
 		title: msg,
 		timer: 1500
 	})
+
+	window.history.pushState(null, "", "edited")
 }

@@ -77,8 +77,15 @@ export const deleteUrl = async ( req, res ) => {
 };
 
 export const editUrl = async ( req, res ) => {
+	let error = false;
 	const { id } = req.params;
-	const url = await Url.findById( id );
+
+	const url = await Url.findById( id ).catch( () => {
+		error = true;
+	} );
+
+	if ( !url || error ) return res.redirect( '/notfound' );
+
 	const user = await User.findById( url.idUser );
 
 	const { nick } = user;
@@ -96,14 +103,18 @@ export const editUrl = async ( req, res ) => {
 };
 
 export const editedUrl = async ( req, res ) => {
+	let error = false;
 	const {
 		nick,
 		password
 	} = req.body;
 	let { views, passwordUrl } = req.body;
 
-	const url = await Url.findById( req.params.id );
-	if ( !url ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
+	const url = await Url.findById( req.params.id ).catch( () => {
+		error = true;
+	} );
+
+	if ( !url || error ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
 
 	const user = await User.findOne( { nick } );
 	if ( !user ) return errorMsg( req, res, 'Usuario no encontrado.', 'true' );
