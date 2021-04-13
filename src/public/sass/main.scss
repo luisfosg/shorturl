@@ -2,6 +2,17 @@ body {
 	display: flex;
 	min-height: 100vh;
 	flex-wrap: wrap;
+
+	&::-webkit-scrollbar {
+        width: 10px;
+        background-color: #ffffff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(0,0,0);
+		background: radial-gradient(circle, rgba(0,0,0,1) 19%, rgba(43,50,51,1) 46%, rgba(34,33,33,1) 80%);
+        border-radius: 5%;
+    }
 }
 
 nav {
