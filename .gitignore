@@ -3,3 +3,6 @@ node_modules
 dist
 docs
 yarn.lock
+
+## No Usa npm, pero por si las moscas.
+package-lock.lock
