@@ -93,7 +93,11 @@ export const withUser = async ( req, res ) => {
 	const saveUrl = await newUrlTmp.save();
 	saveUrl.user = req.user.nick;
 
-	renderHome( req, res, '', '', saveUrl );
+	renderHome( {
+		req,
+		res,
+		saveUrl
+	} );
 };
 
 export const withoutUser = async ( req, res ) => {
@@ -146,7 +150,11 @@ export const withoutUser = async ( req, res ) => {
 		qr
 	} );
 
-	renderHome( req, res, '', '', await newUrlTmp.save() );
+	renderHome( {
+		req,
+		res,
+		saveUrl: await newUrlTmp.save()
+	} );
 };
 
 /** Metodo POST para guardar URLs

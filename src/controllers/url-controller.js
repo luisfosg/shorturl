@@ -15,7 +15,10 @@ import * as encript from '../libs/bcrypt';
 */
 
 export const home = async ( req, res ) => {
-	renderHome( req, res );
+	renderHome( {
+		req,
+		res
+	} );
 };
 
 /** La Función pageNotFound, la ruta ingresada no fue encontrada
@@ -93,13 +96,18 @@ export const editUrl = async ( req, res ) => {
 	const destinationUrl = url.url;
 	const { views } = url;
 
-	renderHome( req, res, '', '', '', '', {
-		id,
-		destinationUrl,
-		views,
-		shortUrl,
-		nick
-	}, 'true' );
+	renderHome( {
+		req,
+		res,
+		data: {
+			id,
+			destinationUrl,
+			views,
+			shortUrl,
+			nick
+		},
+		edit: 'true'
+	} );
 };
 
 export const editedUrl = async ( req, res ) => {
@@ -142,7 +150,11 @@ export const editedUrl = async ( req, res ) => {
 		password: passwordUrl
 	} );
 
-	renderHome( req, res, 'Url Editada correctamente' );
+	renderHome( {
+		req,
+		res,
+		msg: 'Url Editada correctamente'
+	} );
 };
 
 export const viewUrl = async ( req, res ) => {
@@ -151,5 +163,9 @@ export const viewUrl = async ( req, res ) => {
 	const user = await User.findById( saveUrl.idUser );
 	saveUrl.user = user.nick;
 
-	renderHome( req, res, '', '', saveUrl );
+	renderHome( {
+		req,
+		res,
+		saveUrl
+	} );
 };

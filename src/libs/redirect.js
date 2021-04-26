@@ -57,7 +57,16 @@ export const getHost = async ( req, _res ) => {
 	return host;
 };
 
-export const renderHome = async ( req, res, msg = '', error = '', saveUrl = '', findUrl = '', data = '', edit = '' ) => {
+export const renderHome = async ( {
+	req,
+	res,
+	msg = '',
+	error = '',
+	saveUrl = '',
+	findUrl = '',
+	data = '',
+	edit = ''
+} ) => {
 	const host = await getHost( req, res );
 
 	res.render( 'home', {
