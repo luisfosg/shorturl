@@ -7,7 +7,8 @@
 ---------------
 
 <details>
-  <summary>🇪🇸 Descripcion en Español</summary>
+  <summary>🇪🇸 Descripción en Español</summary>
+
   ---------------
 
   - Crea Codigos QR en Base a Una Url.
@@ -21,6 +22,7 @@
 
 <details>
   <summary>💻 Dev</summary>
+
   ---------------
   ## Variables de Entorno
 
