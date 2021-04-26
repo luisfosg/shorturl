@@ -1,4 +1,6 @@
-# Short Url
+<h1 align="center">
+	丂卄ㄖ尺七 ㄩ尺㇄
+</h1>
 
 <img src="./doc/banner.png" >
 
@@ -6,6 +8,7 @@
 
 <details>
   <summary>🇪🇸 Descripcion en Español</summary>
+  ---------------
 
   - Crea Codigos QR en Base a Una Url.
   - Contabiliza las entradas a tu enlace.
@@ -18,7 +21,7 @@
 
 <details>
   <summary>💻 Dev</summary>
-
+  ---------------
   ## Variables de Entorno
 
   - MONGOCONNECTION
