@@ -4,7 +4,13 @@ import urlExists from 'url-exists';
 import { renderHome } from './redirect';
 import { withUser, withoutUser } from '../controllers/data-controller';
 
-export const errorMsg = async ( req, res, msg, edit = '' ) => {
+export const errorMsg = async ( {
+	req,
+	res,
+	error,
+	edit = '',
+	msg = ''
+} ) => {
 	const {
 		destinationUrl,
 		passwordUrl,
@@ -17,8 +23,9 @@ export const errorMsg = async ( req, res, msg, edit = '' ) => {
 	renderHome( {
 		req,
 		res,
-		msg,
+		error,
 		edit,
+		msg,
 		data: {
 			destinationUrl,
 			passwordUrl,
@@ -44,7 +51,11 @@ export const verifyUrl = async ( req, res, url ) => {
 				withUser( req, res );
 			}
 		} else {
-			errorMsg( req, res, 'Url Invalida' );
+			errorMsg( {
+				req,
+				res,
+				error: 'Url Invalida'
+			} );
 		}
 	} );
 };

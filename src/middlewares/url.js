@@ -10,7 +10,11 @@ const dataUser = async ( req, res, next, user ) => {
 		req.user = user;
 		next();
 	} else {
-		errorMsg( req, res, 'Contraseña Incorrecta, ese Usuario ya Existe' );
+		errorMsg( {
+			req,
+			res,
+			error: 'Contraseña Incorrecta, ese Usuario ya Existe'
+		} );
 	}
 };
 
@@ -71,9 +75,19 @@ export const dataEmpy = async ( req, res, next ) => {
 		req.urlSend = true;
 	}
 
-	if ( !req.register && !req.urlSend ) return errorMsg( req, res, 'Faltan Datos Importantes' );
+	if ( !req.register && !req.urlSend ) {
+		return errorMsg( {
+			req,
+			res,
+			error: 'Faltan Datos Importantes'
+		} );
+	}
 	if ( ( nick === '' || password === '' ) && req.register ) {
-		return errorMsg( req, res, 'Usuario y Contraseña Necesarios' );
+		return errorMsg( {
+			req,
+			res,
+			error: 'Usuario y Contraseña Necesarios'
+		} );
 	}
 
 	next();

@@ -66,7 +66,11 @@ export const deleteUrls = async ( req, res ) => {
 	const { psw } = req.params;
 	if ( psw === process.env.DELETEPSW ) {
 		await UrlTemp.deleteMany( { key: 'tmp' } );
-		errorMsg( req, res, 'Url Temporales Eliminadas' );
+		errorMsg( {
+			req,
+			res,
+			msg: 'Url Temporales Eliminadas'
+		} );
 	} else {
 		pageNotFound( req, res );
 	}
