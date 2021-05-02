@@ -2,7 +2,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import qrcode from 'qrcode';
 
-import * as user from '../libs/infoUser';
 import * as encrypt from '../libs/bcrypt';
 
 import Url from '../models/url';
@@ -15,7 +14,7 @@ import {
 	renderHome
 } from '../libs/redirect';
 
-import { errorMsg, verifyUrl } from '../libs/error';
+import { errorMsg } from '../libs/error';
 
 const getCode = async ( type ) => {
 	let code = '';
@@ -155,21 +154,6 @@ export const withoutUser = async ( req, res ) => {
 		res,
 		saveUrl: await newUrlTmp.save()
 	} );
-};
-
-/** Metodo POST para guardar URLs
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.status - función para enviar un estado http con json
-*/
-
-export const sendUrl = async ( req, res ) => {
-	if ( !req.urlSend ) return user.userInfo( req, res );
-
-	const { destinationUrl } = req.body;
-
-	verifyUrl( req, res, destinationUrl );
 };
 
 /** Metodo POST para guardar URLs
