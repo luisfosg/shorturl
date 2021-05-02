@@ -16,6 +16,17 @@ import {
 
 import { errorMsg } from '../libs/error';
 
+export const password = async ( req, res ) => {
+	const { path } = req.body;
+	const error = 'true';
+
+	if ( path.includes( '-tmp' ) ) {
+		redirectUrl( req, res, error, UrlTemp );
+	} else {
+		redirectUrl( req, res, error, Url );
+	}
+};
+
 const getCode = async ( type ) => {
 	let code = '';
 	if ( type === 'tmp' ) {
@@ -154,22 +165,4 @@ export const withoutUser = async ( req, res ) => {
 		res,
 		saveUrl: await newUrlTmp.save()
 	} );
-};
-
-/** Metodo POST para guardar URLs
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.status - función para enviar un estado http con json
-*/
-
-export const password = async ( req, res ) => {
-	const { path } = req.body;
-	const error = 'true';
-
-	if ( path.includes( '-tmp' ) ) {
-		redirectUrl( req, res, error, UrlTemp );
-	} else {
-		redirectUrl( req, res, error, Url );
-	}
 };

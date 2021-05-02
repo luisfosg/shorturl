@@ -5,7 +5,6 @@ import UrlTemp from '../models/urlTemp';
 
 import { renderHome } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
-import * as encript from '../libs/bcrypt';
 
 /** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
  * @type {function}
@@ -54,13 +53,6 @@ export const deleteUrls = async ( req, res ) => {
 	}
 };
 
-export const deleteUrl = async ( req, res ) => {
-	const { id } = req.params;
-	const deleteUrl = await Url.findByIdAndDelete( id );
-
-	res.status( 200 ).json( deleteUrl );
-};
-
 export const editUrl = async ( req, res ) => {
 	let error = false;
 	const { id } = req.params;
@@ -89,52 +81,5 @@ export const editUrl = async ( req, res ) => {
 			nick
 		},
 		edit: 'true'
-	} );
-};
-
-export const editedUrl = async ( req, res ) => {
-	let error = false;
-	const {
-		nick,
-		password
-	} = req.body;
-	let { views, passwordUrl } = req.body;
-
-	const url = await Url.findById( req.params.id ).catch( () => {
-		error = true;
-	} );
-
-	if ( !url || error ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
-
-	const user = await User.findOne( { nick } );
-	if ( !user ) return errorMsg( req, res, 'Usuario no encontrado.', 'true' );
-
-	const matchPassword = await encript.comparePass( password, user.password );
-	if ( !matchPassword ) return errorMsg( req, res, 'Contraseña Incorrecta', 'true' );
-
-	if ( views !== '' ) {
-		try {
-			views = parseInt( views, 10 );
-			if ( views < 0 ) views = '';
-			views = views.toString();
-		} catch ( e ) {
-			views = '';
-		}
-	}
-
-	if ( passwordUrl === '' ) {
-		passwordUrl = '';
-	} else {
-		passwordUrl = await encript.encriptPass( passwordUrl );
-	}
-	await Url.findByIdAndUpdate( url._id, {
-		views,
-		password: passwordUrl
-	} );
-
-	renderHome( {
-		req,
-		res,
-		msg: 'Url Editada correctamente'
 	} );
 };

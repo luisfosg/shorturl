@@ -25,8 +25,8 @@ router.post(
 	UrlClass.sendUrl
 );
 
-router.put( '/edit/:id', urlCtrl.editedUrl );
-router.delete( '/delete/:id', urlCtrl.deleteUrl );
+router.put( '/edit/:id', UrlClass.editedUrl );
+router.delete( '/delete/:id', UrlClass.deleteUrl );
 
 router.get( '*', urlCtrl.pageNotFound );
 
