@@ -1,4 +1,7 @@
 // @ts-nocheck
+/* eslint-disable no-empty-function */
+/* eslint-disable class-methods-use-this */
+
 import { v4 as uuidv4 } from 'uuid';
 import qrcode from 'qrcode';
 
@@ -56,6 +59,8 @@ export const RegisterUrl = class {
 		this.res = res;
 	}
 
+	async workflowShortUrl() {}
+
 	static async saveUrlInDb( Model, data ) {
 		const newUrl = new Model( {
 			...data
@@ -63,7 +68,7 @@ export const RegisterUrl = class {
 		return newUrl;
 	}
 
-	async workflowUrl( type, Model ) {
+	async workflowUrl( Model, type ) {
 		const {
 			destinationUrl,
 			passwordUrl
@@ -75,10 +80,13 @@ export const RegisterUrl = class {
 		if ( shortUrl === '' ) {
 			shortUrl = await getCode( type );
 		} else {
-			shortUrl = await getShortUrl( shortUrl );
-			const getUrl = await Url.findOne( { path: shortUrl } );
-			if ( getUrl ) {
-				return errorMsg( this.req, this.res, 'El Short Url Ingresado ya Existe' );
+			shortUrl = await this.workflowShortUrl( shortUrl );
+			if ( !shortUrl ) {
+				return errorMsg( {
+					req: this.req,
+					res: this.res,
+					error: 'El Short Url Ingresado ya Existe'
+				} );
 			}
 		}
 
@@ -114,6 +122,7 @@ export const RegisterUrl = class {
 
 		const saveUrl = await RegisterUrl.saveUrlInDb( Model, data );
 		saveUrl.user = this.req.user.nick;
+		await saveUrl.save();
 
 		renderHome( {
 			req: this.req,

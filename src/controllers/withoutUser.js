@@ -1,4 +1,4 @@
-import Url from '../models/url';
+import UrlTemp from '../models/urlTemp';
 
 import { RegisterUrl } from './data-controller';
 
@@ -10,7 +10,7 @@ export const RegisterUrlWithoutUser = class extends RegisterUrl {
 	constructor( req, res ) {
 		super( req, res );
 		this.use = 'tmp';
-		this.Model = Url;
+		this.Model = UrlTemp;
 	}
 
 	save() {
