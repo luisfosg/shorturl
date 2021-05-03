@@ -10,6 +10,23 @@ export const RegisterUrlWithoutUser = class extends RegisterUrl {
 		this.Model = UrlTemp;
 	}
 
+	// eslint-disable-next-line class-methods-use-this
+	data( {
+		shortUrl,
+		destinationUrl,
+		password,
+		views,
+		qr
+	} ) {
+		return {
+			path: shortUrl,
+			url: destinationUrl,
+			password,
+			views,
+			qr
+		};
+	}
+
 	save() {
 		this.workflowUrl( this.Model, this.type );
 	}

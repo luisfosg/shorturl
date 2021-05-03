@@ -141,19 +141,3 @@ export const RegisterUrl = class {
 		} );
 	}
 };
-
-export const withoutUser = async ( req, res ) => {
-	const newUrlTmp = new UrlTemp( {
-		path: shortUrl,
-		url: destinationUrl,
-		password,
-		views,
-		qr
-	} );
-
-	renderHome( {
-		req,
-		res,
-		saveUrl: await newUrlTmp.save()
-	} );
-};
