@@ -50,64 +50,77 @@ const getCode = async ( type ) => {
 	return code;
 };
 
-export const withUser = async ( req, res ) => {
-	const {
-		destinationUrl,
-		passwordUrl
-	} = req.body;
+export const RegisterUrl = class {
+	constructor( req, res ) {
+		this.req = req;
+		this.res = res;
+	}
 
-	let { shortUrl, views } = req.body;
-	let password;
+	static async saveUrlInDb( Model, data ) {
+		const newUrl = new Model( {
+			...data
+		} );
+		return newUrl;
+	}
 
-	if ( shortUrl === '' ) {
-		shortUrl = await getCode( 'user' );
-	} else {
-		shortUrl = await getShortUrl( shortUrl );
-		const getUrl = await Url.findOne( { path: shortUrl } );
-		if ( getUrl ) {
-			return errorMsg( req, res, 'El Short Url Ingresado ya Existe' );
+	async workflowUrl( type, Model ) {
+		const {
+			destinationUrl,
+			passwordUrl
+		} = this.req.body;
+
+		let { shortUrl, views } = this.req.body;
+		let password;
+
+		if ( shortUrl === '' ) {
+			shortUrl = await getCode( type );
+		} else {
+			shortUrl = await getShortUrl( shortUrl );
+			const getUrl = await Url.findOne( { path: shortUrl } );
+			if ( getUrl ) {
+				return errorMsg( this.req, this.res, 'El Short Url Ingresado ya Existe' );
+			}
 		}
-	}
 
-	if ( views !== '' ) {
-		try {
-			views = parseInt( views, 10 );
-			if ( views < 0 ) views = '';
-			views = views.toString();
-		} catch ( e ) {
-			views = '';
+		if ( views !== '' ) {
+			try {
+				views = parseInt( views, 10 );
+				if ( views < 0 ) views = '';
+				views = views.toString();
+			} catch ( e ) {
+				views = '';
+			}
 		}
+
+		if ( passwordUrl === '' ) {
+			password = '';
+		} else {
+			password = await encrypt.encriptPass( passwordUrl );
+		}
+
+		const host = await getHost( this.req, this.res );
+		let qrUrl = host;
+		qrUrl += shortUrl;
+
+		const qr = await qrcode.toDataURL( qrUrl );
+		const data = {
+			path: shortUrl,
+			url: destinationUrl,
+			password,
+			views,
+			qr,
+			idUser: this.req.user._id
+		};
+
+		const saveUrl = await RegisterUrl.saveUrlInDb( Model, data );
+		saveUrl.user = this.req.user.nick;
+
+		renderHome( {
+			req: this.req,
+			res: this.res,
+			saveUrl
+		} );
 	}
-
-	if ( passwordUrl === '' ) {
-		password = '';
-	} else {
-		password = await encrypt.encriptPass( passwordUrl );
-	}
-
-	const host = await getHost( req, res );
-	let qrUrl = host;
-	qrUrl += shortUrl;
-
-	const qr = await qrcode.toDataURL( qrUrl );
-
-	const newUrlTmp = new Url( {
-		path: shortUrl,
-		url: destinationUrl,
-		password,
-		views,
-		qr,
-		idUser: req.user._id
-	} );
-
-	const saveUrl = await newUrlTmp.save();
-	saveUrl.user = req.user.nick;
-
-	renderHome( {
-		req,
-		res,
-		saveUrl
-	} );
 };
 
 export const withoutUser = async ( req, res ) => {

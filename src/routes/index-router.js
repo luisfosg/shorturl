@@ -12,8 +12,9 @@ import * as urlMiddle from '../middlewares/url';
 
 const router = Router();
 
-router.get( '/', urlCtrl.home );
 router.get( '/l/:code', UrlClass.shortUrl );
+
+router.get( '/', urlCtrl.home );
 router.get( '/view/:id', UrlClass.viewUrl );
 router.get( '/edit/:id', urlCtrl.editUrl );
 router.get( '/delete/:psw', urlCtrl.deleteUrls );

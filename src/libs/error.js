@@ -2,7 +2,8 @@
 import urlExists from 'url-exists';
 
 import { renderHome } from './redirect';
-import { withUser, withoutUser } from '../controllers/data-controller';
+import { withoutUser } from '../controllers/data-controller';
+import { RegisterUrlWithUser } from '../controllers/withUser';
 
 export const errorMsg = async ( {
 	req,
@@ -48,7 +49,8 @@ export const verifyUrl = async ( req, res, url ) => {
 			if ( !req.register ) {
 				withoutUser( req, res );
 			} else {
-				withUser( req, res );
+				const data = new RegisterUrlWithUser( req, res );
+				data.save();
 			}
 		} else {
 			errorMsg( {
