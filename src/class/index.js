@@ -63,13 +63,43 @@ export const UrlClass = class {
 			error = true;
 		} );
 
-		if ( !url || error ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
+		if ( !url || error ) {
+			return errorMsg( {
+				req,
+				res,
+				error: 'Url no encontrada.',
+				edit: 'true'
+			} );
+		}
 
 		const user = await User.findOne( { nick } );
-		if ( !user ) return errorMsg( req, res, 'Usuario no encontrado.', 'true' );
-
+		if ( !user ) {
+			return errorMsg( {
+				req,
+				res,
+				error: 'Usuario no encontrado.',
+				edit: 'true'
+			} );
+		}
 		const matchPassword = await encript.comparePass( password, user.password );
-		if ( !matchPassword ) return errorMsg( req, res, 'Contraseña Incorrecta', 'true' );
+		if ( !matchPassword ) {
+			return errorMsg( {
+				req,
+				res,
+				error: 'Contraseña Incorrecta',
+				edit: 'true'
+			} );
+		}
+
+		// eslint-disable-next-line eqeqeq
+		if ( url.idUser != user._id ) {
+			return errorMsg( {
+				req,
+				res,
+				error: 'El Usuario No Posee los permisos necesarios.',
+				edit: 'true'
+			} );
+		}
 
 		if ( views !== '' ) {
 			try {
