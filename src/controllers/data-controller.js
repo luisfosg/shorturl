@@ -59,7 +59,16 @@ export const RegisterUrl = class {
 		this.res = res;
 	}
 
-	async workflowShortUrl() {}
+	data() {}
+
+	async workflowShortUrl( Model, shortUrl ) {
+		shortUrl = await getShortUrl( shortUrl );
+		const getUrl = await Model.findOne( { path: shortUrl } );
+		if ( getUrl ) {
+			return false;
+		}
+		return shortUrl;
+	}
 
 	static async saveUrlInDb( Model, data ) {
 		const newUrl = new Model( {
@@ -80,7 +89,8 @@ export const RegisterUrl = class {
 		if ( shortUrl === '' ) {
 			shortUrl = await getCode( type );
 		} else {
-			shortUrl = await this.workflowShortUrl( shortUrl );
+			if ( type === 'tmp' ) shortUrl += '-tmp';
+			shortUrl = await this.workflowShortUrl( Model, shortUrl );
 			if ( !shortUrl ) {
 				return errorMsg( {
 					req: this.req,
@@ -111,17 +121,17 @@ export const RegisterUrl = class {
 		qrUrl += shortUrl;
 
 		const qr = await qrcode.toDataURL( qrUrl );
-		const data = {
-			path: shortUrl,
-			url: destinationUrl,
-			password,
-			views,
+
+		const data = this.data( {
 			qr,
-			idUser: this.req.user._id
-		};
+			shortUrl,
+			destinationUrl,
+			views,
+			password
+		} );
 
 		const saveUrl = await RegisterUrl.saveUrlInDb( Model, data );
-		saveUrl.user = this.req.user.nick;
+		if ( type === 'user' ) saveUrl.user = this.req.user.nick;
 		await saveUrl.save();
 
 		renderHome( {
@@ -133,47 +143,6 @@ export const RegisterUrl = class {
 };
 
 export const withoutUser = async ( req, res ) => {
-	const {
-		destinationUrl,
-		passwordUrl
-	} = req.body;
-
-	let { shortUrl, views } = req.body;
-	let password;
-
-	if ( shortUrl === '' ) {
-		shortUrl = await getCode( 'tmp' );
-	} else {
-		shortUrl += '-tmp';
-		shortUrl = await getShortUrl( shortUrl );
-		const getUrl = await UrlTemp.findOne( { path: shortUrl } );
-		if ( getUrl ) {
-			return errorMsg( req, res, 'El Short Url Ingresado ya Existe' );
-		}
-	}
-
-	if ( views !== '' ) {
-		try {
-			views = parseInt( views, 10 );
-			if ( views < 0 ) views = '';
-			views = views.toString();
-		} catch ( e ) {
-			views = '';
-		}
-	}
-
-	if ( passwordUrl === '' ) {
-		password = '';
-	} else {
-		password = await encrypt.encriptPass( passwordUrl );
-	}
-
-	const host = await getHost( req, res );
-	let qrUrl = host;
-	qrUrl += shortUrl;
-
-	const qr = await qrcode.toDataURL( qrUrl );
-
 	const newUrlTmp = new UrlTemp( {
 		path: shortUrl,
 		url: destinationUrl,
