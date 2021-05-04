@@ -3,7 +3,7 @@ import User from '../models/user';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { renderHome } from '../libs/redirect';
+import { renderHome, redirectUrl } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
 
 export const home = async ( req, res ) => {
@@ -15,6 +15,17 @@ export const home = async ( req, res ) => {
 
 export const pageNotFound = async ( _req, res ) => {
 	res.render( 'notFound' );
+};
+
+export const password = async ( req, res ) => {
+	const { path } = req.body;
+	const error = 'true';
+
+	if ( path.includes( '-tmp' ) ) {
+		redirectUrl( req, res, error, UrlTemp );
+	} else {
+		redirectUrl( req, res, error, Url );
+	}
 };
 
 export const deleteUrls = async ( req, res ) => {

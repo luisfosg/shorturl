@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Url from '../models/url';
 
-import { RegisterUrl } from './data-controller';
+import { RegisterUrl } from './registerUrl';
 
 export const RegisterUrlWithUser = class extends RegisterUrl {
 	constructor( req, res ) {

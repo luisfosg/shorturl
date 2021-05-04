@@ -1,7 +1,7 @@
 // @ts-nocheck
 import UrlTemp from '../models/urlTemp';
 
-import { RegisterUrl } from './data-controller';
+import { RegisterUrl } from './registerUrl';
 
 export const RegisterUrlWithoutUser = class extends RegisterUrl {
 	constructor( req, res ) {

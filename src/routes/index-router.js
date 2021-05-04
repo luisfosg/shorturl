@@ -1,9 +1,8 @@
 import { Router } from 'express';
 
-import * as urlCtrl from '../controllers/url-controller';
-import * as dataCtrl from '../controllers/data-controller';
-
 import { UrlClass } from '../class/index';
+
+import * as urlCtrl from '../controllers/url-controller';
 import * as urlMiddle from '../middlewares/url';
 
 const router = Router();
@@ -15,7 +14,7 @@ router.get( '/view/:id', UrlClass.viewUrl );
 router.get( '/edit/:id', urlCtrl.editUrl );
 router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
-router.post( '/password', dataCtrl.password );
+router.post( '/password', urlCtrl.password );
 router.post(
 	'/',
 	[urlMiddle.dataEmpy, urlMiddle.userRegister],
