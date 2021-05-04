@@ -3,16 +3,8 @@ import User from '../models/user';
 import Url from '../models/url';
 import UrlTemp from '../models/urlTemp';
 
-import { redirectUrl, renderHome } from '../libs/redirect';
+import { renderHome, redirectUrl } from '../libs/redirect';
 import { errorMsg } from '../libs/error';
-import * as encript from '../libs/bcrypt';
-
-/** Renderiza la pagina principal de la aplicación req.headers.host os.hostname();  req.hostname
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.render - función para renderizar el html
-*/
 
 export const home = async ( req, res ) => {
 	renderHome( {
@@ -21,46 +13,20 @@ export const home = async ( req, res ) => {
 	} );
 };
 
-/** La Función pageNotFound, la ruta ingresada no fue encontrada
- * @type {function}
- * @param {Object} _req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.render - función para renderizar el html
-*/
-
 export const pageNotFound = async ( _req, res ) => {
 	res.render( 'notFound' );
 };
 
-/** La Función shortUrl, verifica el link para redirigir a la ruta solicitada
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.status - función para enviar un estado http con json
- * @param {function} res.redirect - función para redireccionar a otra pagina
-*/
+export const password = async ( req, res ) => {
+	const { path } = req.body;
+	const error = 'true';
 
-export const shortUrl = async ( req, res ) => {
-	const { code } = req.params;
-
-	req.body.path = code;
-	req.body.password = '';
-	const error = 'false';
-
-	if ( code.includes( '-tmp' ) ) {
+	if ( path.includes( '-tmp' ) ) {
 		redirectUrl( req, res, error, UrlTemp );
 	} else {
 		redirectUrl( req, res, error, Url );
 	}
 };
-
-/** La Función deleteUrls, Elimina las Url Temporales de la Pagina
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {Object} res - "response" de la ruta
- * @param {function} res.status - función para enviar un estado http con json
- * @param {function} res.redirect - función para redireccionar a otra pagina
-*/
 
 export const deleteUrls = async ( req, res ) => {
 	const { psw } = req.params;
@@ -74,13 +40,6 @@ export const deleteUrls = async ( req, res ) => {
 	} else {
 		pageNotFound( req, res );
 	}
-};
-
-export const deleteUrl = async ( req, res ) => {
-	const { id } = req.params;
-	const deleteUrl = await Url.findByIdAndDelete( id );
-
-	res.status( 200 ).json( deleteUrl );
 };
 
 export const editUrl = async ( req, res ) => {
@@ -111,65 +70,5 @@ export const editUrl = async ( req, res ) => {
 			nick
 		},
 		edit: 'true'
-	} );
-};
-
-export const editedUrl = async ( req, res ) => {
-	let error = false;
-	const {
-		nick,
-		password
-	} = req.body;
-	let { views, passwordUrl } = req.body;
-
-	const url = await Url.findById( req.params.id ).catch( () => {
-		error = true;
-	} );
-
-	if ( !url || error ) return errorMsg( req, res, 'Url no encontrada.', 'true' );
-
-	const user = await User.findOne( { nick } );
-	if ( !user ) return errorMsg( req, res, 'Usuario no encontrado.', 'true' );
-
-	const matchPassword = await encript.comparePass( password, user.password );
-	if ( !matchPassword ) return errorMsg( req, res, 'Contraseña Incorrecta', 'true' );
-
-	if ( views !== '' ) {
-		try {
-			views = parseInt( views, 10 );
-			if ( views < 0 ) views = '';
-			views = views.toString();
-		} catch ( e ) {
-			views = '';
-		}
-	}
-
-	if ( passwordUrl === '' ) {
-		passwordUrl = '';
-	} else {
-		passwordUrl = await encript.encriptPass( passwordUrl );
-	}
-	await Url.findByIdAndUpdate( url._id, {
-		views,
-		password: passwordUrl
-	} );
-
-	renderHome( {
-		req,
-		res,
-		msg: 'Url Editada correctamente'
-	} );
-};
-
-export const viewUrl = async ( req, res ) => {
-	const { id } = req.params;
-	const saveUrl = await Url.findById( id );
-	const user = await User.findById( saveUrl.idUser );
-	saveUrl.user = user.nick;
-
-	renderHome( {
-		req,
-		res,
-		saveUrl
 	} );
 };

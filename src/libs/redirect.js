@@ -1,7 +1,11 @@
 // @ts-nocheck
-import app from '../app';
+import { v4 as uuidv4 } from 'uuid';
 
+import app from '../app';
 import * as encrypt from './bcrypt';
+
+import Url from '../models/url';
+import UrlTemp from '../models/urlTemp';
 
 const views = async ( res, url, Model ) => {
 	if ( url.views !== '' ) {
@@ -92,4 +96,27 @@ export const getShortUrl = async ( url ) => {
 	url = url.replace( /--|---|----|-----|------/g, '-' );
 
 	return url;
+};
+
+export const getCode = async ( type ) => {
+	let code = '';
+	if ( type === 'tmp' ) {
+		code = uuidv4();
+		code = code.substr( 0, 4 );
+		code += '-tmp';
+
+		const getUrl = await UrlTemp.findOne( { path: code } );
+		if ( getUrl ) {
+			code = await getCode( 'tmp' );
+		}
+	} else {
+		code = uuidv4();
+		code = code.substr( 0, 4 );
+
+		const getUrl = await Url.findOne( { path: code } );
+		if ( getUrl ) {
+			code = await getCode( 'user' );
+		}
+	}
+	return code;
 };

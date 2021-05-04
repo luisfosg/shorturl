@@ -1,3 +1,4 @@
+// @ts-nocheck
 import User from '../models/user';
 import * as encrypt from '../libs/bcrypt';
 import { errorMsg } from '../libs/error';
@@ -17,14 +18,6 @@ const dataUser = async ( req, res, next, user ) => {
 		} );
 	}
 };
-
-/** Metodo POST para guardar URLs
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {function} next - continuar con el siguiente middleware
- * @param {Object} res - "response" de la ruta
- * @param {function} res.status - función para enviar un estado http con json
-*/
 
 export const userRegister = async ( req, res, next ) => {
 	if ( !req.register ) return next();
@@ -48,14 +41,6 @@ export const userRegister = async ( req, res, next ) => {
 		next();
 	}
 };
-
-/** Metodo POST para guardar URLs
- * @type {function}
- * @param {Object} req - "request" de la ruta
- * @param {function} next - continuar con el siguiente middleware
- * @param {Object} res - "response" de la ruta
- * @param {function} res.status - función para enviar un estado http con json
-*/
 
 export const dataEmpy = async ( req, res, next ) => {
 	req.register = false;

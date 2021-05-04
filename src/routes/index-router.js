@@ -1,31 +1,28 @@
 import { Router } from 'express';
 
+import { UrlClass } from '../class/index';
+
 import * as urlCtrl from '../controllers/url-controller';
-import * as dataCtrl from '../controllers/data-controller';
-
-import * as url from '../middlewares/url';
-
-/** Genera las rutas para cada una de las Url
- * @type {Object}
-*/
+import * as urlMiddle from '../middlewares/url';
 
 const router = Router();
 
+router.get( '/l/:code', UrlClass.shortUrl );
+
 router.get( '/', urlCtrl.home );
-router.get( '/l/:code', urlCtrl.shortUrl );
-router.get( '/view/:id', urlCtrl.viewUrl );
+router.get( '/view/:id', UrlClass.viewUrl );
 router.get( '/edit/:id', urlCtrl.editUrl );
 router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
-router.post( '/password', dataCtrl.password );
+router.post( '/password', urlCtrl.password );
 router.post(
 	'/',
-	[url.dataEmpy, url.userRegister],
-	dataCtrl.sendUrl
+	[urlMiddle.dataEmpy, urlMiddle.userRegister],
+	UrlClass.sendUrl
 );
 
-router.put( '/edit/:id', urlCtrl.editedUrl );
-router.delete( '/delete/:id', urlCtrl.deleteUrl );
+router.put( '/edit/:id', UrlClass.editedUrl );
+router.delete( '/delete/:id', UrlClass.deleteUrl );
 
 router.get( '*', urlCtrl.pageNotFound );
 
