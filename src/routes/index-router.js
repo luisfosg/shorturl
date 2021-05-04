@@ -6,10 +6,6 @@ import * as dataCtrl from '../controllers/data-controller';
 import { UrlClass } from '../class/index';
 import * as urlMiddle from '../middlewares/url';
 
-/** Genera las rutas para cada una de las Url
- * @type {Object}
-*/
-
 const router = Router();
 
 router.get( '/l/:code', UrlClass.shortUrl );

@@ -7,10 +7,6 @@ import methodOverride from 'method-override';
 import './config';
 import routes from './routes/index-router';
 
-/** Aplicacion de express
- * @type {Object}
-*/
-
 const app = express();
 
 app.set( 'port', process.env.PORT || 3000 );

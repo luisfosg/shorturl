@@ -1,6 +1,4 @@
 // @ts-nocheck
-/* eslint-disable no-empty-function */
-/* eslint-disable class-methods-use-this */
 
 import { v4 as uuidv4 } from 'uuid';
 import qrcode from 'qrcode';
