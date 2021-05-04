@@ -52,11 +52,17 @@ export const dataEmpy = async ( req, res, next ) => {
 		destinationUrl,
 	} = req.body;
 
+	if ( nick === undefined && password === undefined ) {
+		if ( destinationUrl === undefined ) return res.render( 'notFound' );
+	} else if ( destinationUrl === undefined ) {
+		if ( nick === undefined && password === undefined ) return res.render( 'notFound' );
+	}
+
 	if ( nick !== '' || password !== '' ) {
 		req.register = true;
 	}
 
-	if ( destinationUrl !== '' ) {
+	if ( destinationUrl !== '' && destinationUrl !== undefined ) {
 		req.urlSend = true;
 	}
 
@@ -67,7 +73,8 @@ export const dataEmpy = async ( req, res, next ) => {
 			error: 'Faltan Datos Importantes'
 		} );
 	}
-	if ( ( nick === '' || password === '' ) && req.register ) {
+
+	if ( ( nick === '' || password === '' || nick === undefined || password === undefined ) && req.register ) {
 		return errorMsg( {
 			req,
 			res,

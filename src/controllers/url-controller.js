@@ -19,6 +19,7 @@ export const pageNotFound = async ( _req, res ) => {
 
 export const password = async ( req, res ) => {
 	const { path } = req.body;
+	if ( !path ) return res.render( 'notFound' );
 	const error = 'true';
 
 	if ( path.includes( '-tmp' ) ) {

@@ -10,7 +10,6 @@ const router = Router();
 router.get( '/l/:code', UrlClass.shortUrl );
 
 router.get( '/', urlCtrl.home );
-router.get( '/view/:id', UrlClass.viewUrl );
 router.get( '/edit/:id', urlCtrl.editUrl );
 router.get( '/delete/:psw', urlCtrl.deleteUrls );
 
@@ -21,6 +20,7 @@ router.post(
 	UrlClass.sendUrl
 );
 
+router.get( '/view/:id', UrlClass.viewUrl );
 router.put( '/edit/:id', UrlClass.editedUrl );
 router.delete( '/delete/:id', UrlClass.deleteUrl );
 

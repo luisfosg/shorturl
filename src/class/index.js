@@ -5,13 +5,13 @@ import UrlTemp from '../models/urlTemp';
 
 import { renderHome, redirectUrl } from '../libs/redirect';
 import { verifyUrl, errorMsg } from '../libs/error';
+import { userInfo } from '../libs/infoUser';
 
-import * as user from '../libs/infoUser';
 import * as encript from '../libs/bcrypt';
 
 export const UrlClass = class {
 	static async sendUrl( req, res ) {
-		if ( !req.urlSend ) return user.userInfo( req, res );
+		if ( !req.urlSend ) return userInfo( req, res );
 		const { destinationUrl } = req.body;
 
 		verifyUrl( req, res, destinationUrl );
@@ -33,8 +33,17 @@ export const UrlClass = class {
 
 	static async viewUrl( req, res ) {
 		const { id } = req.params;
-		const saveUrl = await Url.findById( id );
-		const user = await User.findById( saveUrl.idUser );
+		let error = false;
+
+		const saveUrl = await Url.findById( id ).catch( () => {
+			error = true;
+		} );
+		if ( error ) return res.render( 'notFound' );
+
+		const user = await User.findById( saveUrl.idUser ).catch( () => {
+			res.render( 'notFound' );
+		} );
+		if ( error ) return res.render( 'notFound' );
 		saveUrl.user = user.nick;
 
 		renderHome( {
