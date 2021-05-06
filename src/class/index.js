@@ -41,7 +41,7 @@ export const UrlClass = class {
 		if ( error ) return res.render( 'notFound' );
 
 		const user = await User.findById( saveUrl.idUser ).catch( () => {
-			res.render( 'notFound' );
+			error = true;
 		} );
 		if ( error ) return res.render( 'notFound' );
 		saveUrl.user = user.nick;
@@ -56,6 +56,19 @@ export const UrlClass = class {
 	static async deleteUrl( req, res ) {
 		const { id } = req.params;
 		let error = false;
+
+		let { nick, password } = req.body;
+
+		if ( nick === undefined ) nick = '';
+		if ( password === undefined ) password = '';
+		if ( nick === '' || password === '' ) return res.render( 'notFound' );
+
+		const user = await User.findOne( { nick } ).catch( () => {
+			error = true;
+		} );
+		if ( error ) return res.render( 'notFound' );
+
+		if ( user.password !== password ) return res.render( 'notFound' );
 
 		const deleteUrl = await Url.findByIdAndDelete( id ).catch( () => {
 			error = true;

@@ -7,6 +7,9 @@ export const userInfo = async ( req, res ) => {
 
 	const findUrl = await Url.find( { idUser: user._id } );
 
+	findUrl.nick = user.nick;
+	findUrl.password = user.password;
+
 	renderHome( {
 		req,
 		res,

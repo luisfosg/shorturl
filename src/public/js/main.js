@@ -39,6 +39,14 @@ if ( buttonDelete ) {
 }
 
 function viewAlert( id, title ) {
+	const nickDelete = document.getElementById( 'nickUser' );
+	const passwordDelete = document.getElementById( 'passwordUser' );
+
+	let data = {
+		'nick': nickDelete.value,
+		'password': passwordDelete.value
+	}
+
 	Swal.fire({
 		title: 'Eliminar',
 		icon: 'warning',
@@ -53,6 +61,10 @@ function viewAlert( id, title ) {
 		if (result.isDenied) {
 			fetch( `/delete/${ id }`, {
 				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body:JSON.stringify(data)
 			}).then(_res => {
 				location.reload();
 			})

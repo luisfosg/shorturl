@@ -7,6 +7,9 @@
 				<div class="alert alert-primary" role="alert">
 					Actualmente No tiene Ninguna Url Asociada.
 				</div>
+			<% } else { %>
+				<input type="hidden" id="nickUser" value="<%= findUrl.nick %>">
+				<input type="hidden" id="passwordUser" value="<%= findUrl.password %>">
 			<% } %>
 
 			<% findUrl.forEach(function(url){ %>
