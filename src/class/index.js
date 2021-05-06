@@ -55,7 +55,14 @@ export const UrlClass = class {
 
 	static async deleteUrl( req, res ) {
 		const { id } = req.params;
-		const deleteUrl = await Url.findByIdAndDelete( id );
+		let error = false;
+
+		const deleteUrl = await Url.findByIdAndDelete( id ).catch( () => {
+			error = true;
+		} );
+		if ( error ) return res.render( 'notFound' );
+
+		if ( !deleteUrl ) return res.render( 'notFound' );
 
 		res.status( 200 ).json( deleteUrl );
 	}
@@ -63,10 +70,12 @@ export const UrlClass = class {
 	static async editedUrl( req, res ) {
 		let error = false;
 		const {
-			nick,
-			password
+			nick
 		} = req.body;
-		let { views, passwordUrl } = req.body;
+		let { views, passwordUrl, password } = req.body;
+		if ( password === undefined ) password = '';
+		if ( views === undefined ) views = '';
+		if ( passwordUrl === undefined ) passwordUrl = '';
 
 		const url = await Url.findById( req.params.id ).catch( () => {
 			error = true;

@@ -60,6 +60,7 @@ export const dataEmpy = async ( req, res, next ) => {
 
 	if ( nick !== '' || password !== '' ) {
 		req.register = true;
+		if ( nick === undefined && password === undefined ) req.register = false;
 	}
 
 	if ( destinationUrl !== '' && destinationUrl !== undefined ) {
@@ -81,6 +82,12 @@ export const dataEmpy = async ( req, res, next ) => {
 			error: 'Usuario y Contraseña Necesarios'
 		} );
 	}
+
+	/* ============================== quitando undefined */
+	const { shortUrl, passwordUrl, views } = req.body;
+	if ( shortUrl === undefined ) req.body.shortUrl = '';
+	if ( passwordUrl === undefined ) req.body.passwordUrl = '';
+	if ( views === undefined ) req.body.views = '';
 
 	next();
 };

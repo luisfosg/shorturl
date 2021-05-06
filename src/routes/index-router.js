@@ -24,9 +24,9 @@ router.get( '/view/:id', UrlClass.viewUrl );
 router.put( '/edit/:id', UrlClass.editedUrl );
 router.delete( '/delete/:id', UrlClass.deleteUrl );
 
-router.get( '/.well-known/pki-validation/9AB51428646CB35898B2D4F5DDC3CCB5.txt', ( _req, res ) => {
-	res.render( '/.well-known/pki-validation/9AB51428646CB35898B2D4F5DDC3CCB5.txt' );
-} );
 router.get( '*', urlCtrl.pageNotFound );
+router.put( '*', urlCtrl.pageNotFound );
+router.post( '*', urlCtrl.pageNotFound );
+router.delete( '*', urlCtrl.pageNotFound );
 
 export default router;
