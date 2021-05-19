@@ -57,7 +57,7 @@ export const verifyUrl = async ( req, res, url ) => {
 			errorMsg( {
 				req,
 				res,
-				error: 'Url Invalida'
+				error: 'Url Invalidates'
 			} );
 		}
 	} );

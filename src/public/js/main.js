@@ -48,15 +48,15 @@ function viewAlert( id, title ) {
 	}
 
 	Swal.fire({
-		title: 'Eliminar',
+		title: 'Delete',
 		icon: 'warning',
 		html:
-		`¿ Desea Eliminar la Url ${ title } ?`,
+		`¿ You Want to delete the url ${ title } ?`,
 		showDenyButton: true,
 		showCancelButton: true,
 		showConfirmButton: false,
-		denyButtonText: `Si, Eliminar`,
-		cancelButtonText: `Cancelar`
+		denyButtonText: `yes, remove`,
+		cancelButtonText: `Cancel`
 	}).then((result) => {
 		if (result.isDenied) {
 			fetch( `/delete/${ id }`, {
@@ -93,7 +93,7 @@ function copyTheText(title, text) {
 
 	Swal.fire({
 		icon: 'success',
-		title: `${title} copiado correctamente`,
+		title: `${title} copied correctly`,
 		showConfirmButton: false,
 		timer: 1500
 	})

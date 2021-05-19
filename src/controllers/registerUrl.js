@@ -56,7 +56,7 @@ export const RegisterUrl = class {
 				return errorMsg( {
 					req: this.req,
 					res: this.res,
-					error: 'El Short Url Ingresado ya Existe'
+					error: 'The entered Short Url already exists'
 				} );
 			}
 		}

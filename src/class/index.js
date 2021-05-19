@@ -98,7 +98,7 @@ export const UrlClass = class {
 			return errorMsg( {
 				req,
 				res,
-				error: 'Url no encontrada.',
+				error: 'Url not found',
 				edit: 'true'
 			} );
 		}
@@ -108,7 +108,7 @@ export const UrlClass = class {
 			return errorMsg( {
 				req,
 				res,
-				error: 'Usuario no encontrado.',
+				error: 'User not found',
 				edit: 'true'
 			} );
 		}
@@ -117,7 +117,7 @@ export const UrlClass = class {
 			return errorMsg( {
 				req,
 				res,
-				error: 'Contraseña Incorrecta',
+				error: 'Wrong password',
 				edit: 'true'
 			} );
 		}
@@ -127,7 +127,7 @@ export const UrlClass = class {
 			return errorMsg( {
 				req,
 				res,
-				error: 'El Usuario No Posee los permisos necesarios.',
+				error: 'The user doesn\'t have necessary permissions ',
 				edit: 'true'
 			} );
 		}
@@ -155,7 +155,7 @@ export const UrlClass = class {
 		renderHome( {
 			req,
 			res,
-			msg: 'Url Editada correctamente'
+			msg: 'Url Edited correctly'
 		} );
 	}
 };

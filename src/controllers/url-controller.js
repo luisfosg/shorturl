@@ -36,7 +36,7 @@ export const deleteUrls = async ( req, res ) => {
 		errorMsg( {
 			req,
 			res,
-			msg: 'Url Temporales Eliminadas'
+			msg: 'Limited Url Deleted'
 		} );
 	} else {
 		pageNotFound( req, res );

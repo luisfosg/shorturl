@@ -14,7 +14,7 @@ const dataUser = async ( req, res, next, user ) => {
 		errorMsg( {
 			req,
 			res,
-			error: 'Contraseña Incorrecta, ese Usuario ya Existe'
+			error: 'Incorrect Password, this user already exists'
 		} );
 	}
 };
@@ -71,7 +71,7 @@ export const dataEmpy = async ( req, res, next ) => {
 		return errorMsg( {
 			req,
 			res,
-			error: 'Faltan Datos Importantes'
+			error: 'Important Data Missing'
 		} );
 	}
 
@@ -79,7 +79,7 @@ export const dataEmpy = async ( req, res, next ) => {
 		return errorMsg( {
 			req,
 			res,
-			error: 'Usuario y Contraseña Necesarios'
+			error: 'User and Password Required'
 		} );
 	}
 

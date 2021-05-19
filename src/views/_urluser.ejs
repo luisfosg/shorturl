@@ -1,11 +1,11 @@
 <div class="col-md-6 d-flex justify-content-center">
 	<div class="card border-primary mt-3 w-100">
-		<div class="card-header"><i class="fas fa-clipboard-list"></i> Url List</div>
+		<div class="card-header"><i class="fas fa-clipboard-list"></i> List Url</div>
 		<div class="card-body text-primary">
 
 			<% if(findUrl.length === 0) { %>
 				<div class="alert alert-primary" role="alert">
-					Actualmente No tiene Ninguna Url Asociada.
+					Currently doesn't have an associated url.
 				</div>
 			<% } else { %>
 				<input type="hidden" id="nickUser" value="<%= findUrl.nick %>">
