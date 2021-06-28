@@ -20,18 +20,12 @@
 
 ---------------
 
-<details>
-  <summary>💻 Dev</summary>
-
-  ---------------
-  ## Variables de Entorno
-
-  - MONGOCONNECTION
-  - MONGOCONNECTION_TEST
-  - DELETEPSW
-</details>
-
----------------
+## Environment Variables
+```js
+MONGOCONNECTION = ""
+MONGOCONNECTION_TEST = ""
+DELETEPSW = ""
+```
 
 ## Contributors
 
