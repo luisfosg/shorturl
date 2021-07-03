@@ -22,7 +22,7 @@ export const password = async ( req, res ) => {
 	if ( !path ) return res.render( 'notFound' );
 	const error = 'true';
 
-	if ( path.includes( '-tmp' ) ) {
+	if ( path.endsWith( '-tmp' ) ) {
 		redirectUrl( req, res, error, UrlTemp );
 	} else {
 		redirectUrl( req, res, error, Url );

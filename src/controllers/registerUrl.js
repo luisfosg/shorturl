@@ -50,7 +50,16 @@ export const RegisterUrl = class {
 		if ( shortUrl === '' ) {
 			shortUrl = await getCode( type );
 		} else {
-			if ( type === 'tmp' ) shortUrl += '-tmp';
+			if ( type === 'tmp' ) {
+				shortUrl += '-tmp';
+			} else if ( shortUrl.endsWith( 'tmp' ) ) {
+				return errorMsg( {
+					req: this.req,
+					res: this.res,
+					error: 'you can\'t use tmp, at the end of your short_url'
+				} );
+			}
+
 			shortUrl = await this.workflowShortUrl( Model, shortUrl );
 			if ( !shortUrl ) {
 				return errorMsg( {

@@ -7,7 +7,23 @@
 ---------------
 
 <details>
-  <summary>🇪🇸 Descripción en Español</summary>
+  <summary>🇬🇧 Description</summary>
+
+  ---------------
+
+  - Create QR Codes Based on a Url.
+  - Post the entries to your link.
+  - Protect your address with a password.
+  - Manage Your Url.
+  - Create Temporary Url.
+</details>
+
+---------------
+
+---------------
+
+<details>
+  <summary>🇪🇸 Descripción</summary>
 
   ---------------
 

@@ -24,7 +24,7 @@ export const UrlClass = class {
 		req.body.password = '';
 		const error = 'false';
 
-		if ( code.includes( '-tmp' ) ) {
+		if ( code.endsWith( '-tmp' ) ) {
 			redirectUrl( req, res, error, UrlTemp );
 		} else {
 			redirectUrl( req, res, error, Url );

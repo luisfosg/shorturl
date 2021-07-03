@@ -7,7 +7,7 @@
 			<a target="_blank" href="<%= host %><%= saveUrl.path %>"><%= host %><%= saveUrl.path %></a>
 			<br><br>
 
-			<% if (!saveUrl.path.includes( '-tmp' )) { %>
+			<% if (!saveUrl.path.endsWith( '-tmp' )) { %>
 				<strong class="text-secondary"><i class="far fa-eye"></i></strong> <%= saveUrl.clicks %>
 				<br>
 			<% } %>
@@ -22,7 +22,7 @@
 			<% } else { %> yes <% } %>
 			<br>
 
-			<% if (saveUrl.path.includes( '-tmp' )) { %> <strong class="text-secondary">Type: </strong> Temporary
+			<% if (saveUrl.path.endsWith( '-tmp' )) { %> <strong class="text-secondary">Type: </strong> Temporary
 			<% } else { %> <strong class="text-secondary">User: </strong> <%= saveUrl.user %> <% } %>
 			<br><br>
 
