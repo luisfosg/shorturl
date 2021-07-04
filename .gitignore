@@ -6,3 +6,4 @@ yarn.lock
 
 ## No Usa npm, pero por si las moscas.
 package-lock.lock
+package-lock.json

@@ -5,9 +5,11 @@ import { UrlClass } from '../class/index';
 import * as urlCtrl from '../controllers/url-controller';
 import * as urlMiddle from '../middlewares/url';
 
+const UrlClassCtrl = UrlClass.getInstance();
+
 const router = Router();
 
-router.get( '/l/:code', UrlClass.shortUrl );
+router.get( '/l/:code', UrlClassCtrl.shortUrl );
 
 router.get( '/', urlCtrl.home );
 router.get( '/edit/:id', urlCtrl.editUrl );
@@ -17,12 +19,12 @@ router.post( '/password', urlCtrl.password );
 router.post(
 	'/',
 	[urlMiddle.dataEmpy, urlMiddle.userRegister],
-	UrlClass.sendUrl
+	UrlClassCtrl.sendUrl
 );
 
-router.get( '/view/:id', UrlClass.viewUrl );
-router.put( '/edit/:id', UrlClass.editedUrl );
-router.delete( '/delete/:id', UrlClass.deleteUrl );
+router.get( '/view/:id', UrlClassCtrl.viewUrl );
+router.put( '/edit/:id', UrlClassCtrl.editedUrl );
+router.delete( '/delete/:id', UrlClassCtrl.deleteUrl );
 
 router.get( '*', urlCtrl.pageNotFound );
 router.put( '*', urlCtrl.pageNotFound );

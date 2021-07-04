@@ -10,14 +10,24 @@ import { userInfo } from '../libs/infoUser';
 import * as encript from '../libs/bcrypt';
 
 export const UrlClass = class {
-	static async sendUrl( req, res ) {
+	static instance = null;
+
+	static getInstance() {
+		if ( !UrlClass.instance ) {
+			UrlClass.instance = new UrlClass();
+		}
+
+		return UrlClass.instance;
+	}
+
+	async sendUrl( req, res ) {
 		if ( !req.urlSend ) return userInfo( req, res );
 		const { destinationUrl } = req.body;
 
 		verifyUrl( req, res, destinationUrl );
 	}
 
-	static async shortUrl( req, res ) {
+	async shortUrl( req, res ) {
 		const { code } = req.params;
 
 		req.body.path = code;
@@ -31,7 +41,7 @@ export const UrlClass = class {
 		}
 	}
 
-	static async viewUrl( req, res ) {
+	async viewUrl( req, res ) {
 		const { id } = req.params;
 		let error = false;
 
@@ -53,7 +63,7 @@ export const UrlClass = class {
 		} );
 	}
 
-	static async deleteUrl( req, res ) {
+	async deleteUrl( req, res ) {
 		const { id } = req.params;
 		let error = false;
 
@@ -80,7 +90,7 @@ export const UrlClass = class {
 		res.status( 200 ).json( deleteUrl );
 	}
 
-	static async editedUrl( req, res ) {
+	async editedUrl( req, res ) {
 		let error = false;
 		const {
 			nick
