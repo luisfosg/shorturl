@@ -90,7 +90,17 @@ export const RegisterUrl = class {
 		let qrUrl = host;
 		qrUrl += shortUrl;
 
-		const qr = await qrcode.toDataURL( qrUrl );
+		const opts = {
+			errorCorrectionLevel: 'H',
+			type: 'image/png',
+			quality: 0.3,
+			margin: 2,
+			color: {
+			  dark:"#151515FF",
+			  light:"#FFFFFF80"
+			}
+		}
+		const qr = await qrcode.toDataURL( qrUrl, opts );
 
 		const data = this.data( {
 			qr,
